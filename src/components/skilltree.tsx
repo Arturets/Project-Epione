@@ -1,62 +1,70 @@
-// src/components/SkillTree.tsx
-import { component$, useSignal, useTask$, $, useStore } from '@builder.io/qwik';
+// src/components/StarCircles.tsx
+import { component$ } from '@builder.io/qwik';
+
+import {
+  forceSimulation,
+  forceManyBody,
+  forceLink,
+  forceCenter,
+  SimulationNodeDatum,
+  SimulationLinkDatum,
+} from 'd3-force';
+
+interface Node extends SimulationNodeDatum {
+  id: string;
+}
+
+interface Link extends SimulationLinkDatum<Node> {
+  source: string;
+  target: string;
+}
+
+// Create 5 nodes
+const nodes: Node[] = [
+  { id: 'A' },
+  { id: 'B' },
+  { id: 'C' },
+  { id: 'D' },
+  { id: 'E' },
+];
+
+// Connect them in a star pattern (A is the center)
+const links: Link[] = [
+  { source: 'A', target: 'B' },
+  { source: 'A', target: 'C' },
+  { source: 'A', target: 'D' },
+  { source: 'A', target: 'E' },
+];
+
+// Create simulation
+const sim = forceSimulation<Node>(nodes)
+  .force('charge', forceManyBody().strength(-200))
+  .force('link', forceLink<Node, Link>(links).id(d => d.id).distance(100))
+  .force('center', forceCenter(0, 0))
+  .stop();
+
+// Run simulation manually for a few ticks
+for (let i = 0; i < 300; i++) sim.tick();
+
+// Output final positions
+for (const node of nodes) {
+  console.log(`${node.id}: x=${node.x?.toFixed(1)}, y=${node.y?.toFixed(1)}`);
+}
 
 export const SkillTree = component$(() => {
   const radius = 10;
-  const draggingIndex = useSignal<number | null>(null);
-  const offset = useSignal({ x: 0, y: 0 });
-
-  const positions = useStore([
-    { x: 50, y: 10 },
-    { x: 90, y: 35 },
-    { x: 72, y: 80 },
-    { x: 28, y: 80 },
-    { x: 10, y: 35 },
-  ]);
-
-  const onMouseDown = $((e: MouseEvent, index: number) => {
-    draggingIndex.value = index;
-    const pos = positions[index];
-    offset.value = {
-      x: e.clientX - pos.x,
-      y: e.clientY - pos.y,
-    };
-  });
-
-  const onMouseMove = $((e: MouseEvent) => {
-    if (draggingIndex.value !== null) {
-      const index = draggingIndex.value;
-      positions[index].x = e.clientX - offset.value.x;
-      positions[index].y = e.clientY - offset.value.y;
-    }
-  });
-
-  const onMouseUp = $(() => {
-    draggingIndex.value = null;
-  });
-
-  // Attach mouse listeners to document
-  useTask$(() => {
-    document.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseup', onMouseUp);
-    return () => {
-      document.removeEventListener('mousemove', onMouseMove);
-      document.removeEventListener('mouseup', onMouseUp);
-    };
-  });
+  const positions = [
+    { cx: 50, cy: 10 },   // Top
+    { cx: 90, cy: 35 },   // Top-right
+    { cx: 72, cy: 80 },   // Bottom-right
+    { cx: 28, cy: 80 },   // Bottom-left
+    { cx: 10, cy: 35 },   // Top-left
+  ];
 
   return (
-    <svg viewBox="0 0 100 100" class="w-full h-auto max-w-xs mx-auto border">
+    <svg viewBox="0 0 100 100" class="w-full h-auto max-w-xs mx-auto">
       {positions.map((pos, i) => (
-        <circle
-          key={i}
-          cx={pos.x}
-          cy={pos.y}
-          r={radius}
-          fill="#4ade80"
-          class="cursor-pointer"
-          onMouseDown$={(e) => onMouseDown(e, i)}
-        />
+        <circle key={i} cx={pos.cx} cy={pos.cy} r={radius} fill="#4ade80" />
       ))}
     </svg>
   );

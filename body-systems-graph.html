@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Human Body Systems — Metrics Graph</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+  :root {
+    --bg:#060a10; --border:#1a2a40; --accent:#00d4ff; --accent2:#ff6b35;
+    --text:#c8dbe8; --text-dim:#4a6275;
+  }
+  body { background:var(--bg); color:var(--text); font-family:'Rajdhani',sans-serif; height:100vh; overflow:hidden; display:flex; flex-direction:column; }
+  body::before {
+    content:''; position:fixed; inset:0; pointer-events:none; z-index:999; opacity:0.5;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  }
+  header {
+    padding:14px 28px 11px; border-bottom:1px solid var(--border);
+    display:flex; align-items:baseline; gap:20px;
+    background:linear-gradient(180deg,#0a1218 0%,transparent 100%); position:relative; z-index:10;
+  }
+  header h1 { font-family:'Cormorant Garamond',serif; font-size:1.65rem; font-weight:600; letter-spacing:.04em; color:#e8f4f8; }
+  header h1 span { color:var(--accent); font-style:italic; }
+  header p { font-size:.75rem; font-weight:300; color:var(--text-dim); letter-spacing:.12em; text-transform:uppercase; }
+
+  #graph-container { flex:1; position:relative; overflow:hidden; }
+  svg { width:100%; height:100%; }
+
+  #mother-layer { transition:opacity 0.45s ease; }
+  #mother-layer.hidden { opacity:0; pointer-events:none; }
+  #detail-layer { opacity:0; pointer-events:none; transition:opacity 0.35s ease 0.15s; }
+  #detail-layer.visible { opacity:1; pointer-events:all; }
+
+  .m-link { stroke-linecap:round; fill:none; }
+  .m-node { cursor:pointer; }
+  .node-ring { fill:none; }
+  .node-core { transition:filter .2s; }
+  .node-label { font-family:'Rajdhani',sans-serif; font-weight:700; letter-spacing:.1em; text-transform:uppercase; text-anchor:middle; pointer-events:none; fill:#d0e8f0; }
+
+  .sub-node-group { cursor:pointer; }
+  .sub-label { font-family:'Rajdhani',sans-serif; font-weight:700; letter-spacing:.06em; text-transform:uppercase; text-anchor:middle; pointer-events:none; fill:#d0e8f0; }
+  .metric-link { fill:none; stroke-linecap:round; }
+  .arc-back-hit { fill:none; stroke:transparent; stroke-width:32; cursor:pointer; }
+  .arc-hint { font-family:'Rajdhani',sans-serif; font-size:9px; letter-spacing:.18em; text-transform:uppercase; fill:var(--text-dim); pointer-events:none; }
+
+  #detail-panel {
+    position:absolute; top:0; right:-380px; bottom:0; width:360px;
+    background:#080e18f5; border-left:1px solid var(--border);
+    z-index:20; display:flex; flex-direction:column;
+    transition:right .4s cubic-bezier(.4,0,.2,1);
+  }
+  #detail-panel.visible { right:0; }
+  #dp-header { padding:22px 22px 16px; border-bottom:1px solid var(--border); flex-shrink:0; }
+  #dp-header h2 { font-family:'Cormorant Garamond',serif; font-size:1.5rem; letter-spacing:.04em; margin-bottom:6px; }
+  #dp-header p { font-size:.76rem; line-height:1.55; color:var(--text); font-weight:300; }
+  #dp-body { flex:1; overflow-y:auto; padding:16px 22px 24px; }
+  #dp-body::-webkit-scrollbar { width:4px; }
+  #dp-body::-webkit-scrollbar-track { background:transparent; }
+  #dp-body::-webkit-scrollbar-thumb { background:var(--border); border-radius:2px; }
+  .dp-metric { margin-bottom:6px; padding:7px 10px; border-left:2px solid var(--border); transition:border-color .15s, background .15s; }
+  .dp-metric:hover { border-left-color:var(--accent); }
+  .dp-metric-name { font-size:.78rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--text); margin-bottom:2px; }
+  .dp-metric-group { font-size:.67rem; color:var(--accent2); font-style:italic; font-family:'Cormorant Garamond',serif; }
+
+  #tooltip {
+    position:absolute; background:#0a1520; border:1px solid var(--accent); border-radius:2px;
+    padding:13px 17px; max-width:290px; pointer-events:none;
+    opacity:0; transition:opacity .15s; z-index:100;
+    box-shadow:0 0 28px rgba(0,212,255,.12),0 4px 18px rgba(0,0,0,.6);
+  }
+  #tooltip.visible { opacity:1; }
+  #tooltip h3 { font-family:'Cormorant Garamond',serif; font-size:1.05rem; color:var(--accent); margin-bottom:4px; }
+  #tooltip p { font-size:.76rem; line-height:1.5; color:var(--text); font-weight:300; margin-bottom:5px; }
+  #tooltip .conn-label { font-size:.62rem; letter-spacing:.15em; text-transform:uppercase; color:var(--text-dim); margin-bottom:3px; }
+  #tooltip .conn-list { font-size:.74rem; color:#7ab8d4; line-height:1.6; font-style:italic; font-family:'Cormorant Garamond',serif; }
+
+  #edge-panel {
+    position:absolute; bottom:18px; left:50%; transform:translateX(-50%);
+    background:#0a1520ee; border:1px solid var(--border); border-top:2px solid var(--accent2);
+    border-radius:2px; padding:9px 18px; text-align:center; pointer-events:none;
+    opacity:0; transition:opacity .2s; z-index:100; max-width:480px;
+  }
+  #edge-panel.visible { opacity:1; }
+  #edge-panel .edge-systems { font-family:'Cormorant Garamond',serif; font-size:.95rem; color:var(--accent2); margin-bottom:3px; }
+  #edge-panel .edge-desc { font-size:.75rem; color:var(--text); font-weight:300; }
+
+  #legend {
+    position:absolute; top:16px; right:16px; background:#0a1520cc;
+    border:1px solid var(--border); border-radius:2px; padding:11px 15px; z-index:10; min-width:155px; transition:opacity .3s;
+  }
+  #legend.hidden { opacity:0; pointer-events:none; }
+  #legend h4 { font-size:.62rem; letter-spacing:.2em; text-transform:uppercase; color:var(--text-dim); margin-bottom:9px; }
+  .legend-item { display:flex; align-items:center; gap:7px; margin-bottom:5px; font-size:.72rem; color:var(--text); font-weight:300; }
+  .legend-dot { width:9px; height:9px; border-radius:50%; flex-shrink:0; }
+
+  #hint { position:absolute; bottom:18px; right:16px; font-size:.65rem; color:var(--text-dim); letter-spacing:.1em; text-transform:uppercase; line-height:1.8; z-index:10; transition:opacity .3s; }
+  #hint.hidden { opacity:0; }
+
+  .pulse-ring { animation:pulse 3s ease-in-out infinite; transform-origin:center; }
+  @keyframes pulse { 0%,100%{opacity:.15} 50%{opacity:.4} }
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>Human Body <span>Systems</span></h1>
+    <p id="header-sub">Physiology & Performance Metrics · Click any system to explore its measurements</p>
+  </div>
+</header>
+<div id="graph-container">
+  <svg id="graph"><g id="mother-layer"></g><g id="detail-layer"></g></svg>
+  <div id="tooltip"></div>
+  <div id="edge-panel"></div>
+  <div id="legend"></div>
+  <div id="hint">Click a node to explore metrics</div>
+  <div id="detail-panel">
+    <div id="dp-header"><h2></h2><p></p></div>
+    <div id="dp-body"></div>
+  </div>
+</div>
+
+<script>
+// ─── DATA ─────────────────────────────────────────────────────────────────────
+const SYSTEMS = [
+{ id:"cardiovascular", name:"Cardiovascular", color:"#e63946", category:"transport", radius:34,
+  desc:"Pumps blood throughout the body, delivering oxygen, nutrients, and hormones while removing carbon dioxide and metabolic waste.",
+  metricGroups:[
+    { group:"Cardiac Function", metrics:[
+      "Heart rate — resting, max, exercise, recovery",
+      "Heart rate variability (HRV)",
+      "Stroke volume",
+      "Cardiac output",
+      "Ejection fraction",
+      "Arteriovenous oxygen difference (a-vO₂ diff)"
+    ]},
+    { group:"Blood Pressure", metrics:[
+      "Blood pressure — systolic / diastolic"
+    ]},
+    { group:"Oxygen Transport", metrics:[
+      "VO₂ max — whole-system integrator",
+      "VO₂ at lactate threshold",
+      "Aerobic power output at VO₂ max"
+    ]},
+    { group:"Blood Markers", metrics:[
+      "Hemoglobin & hematocrit",
+      "Red blood cell count & reticulocyte count",
+      "Ferritin & serum iron"
+    ]},
+    { group:"Workload & Recovery", metrics:[
+      "Session RPE (sRPE)",
+      "Acute:chronic workload ratio (ACWR)",
+      "Readiness scores"
+    ]}
+  ],
+  metricLinks:[
+    [0,1],[0,2],[2,3],[2,4],[0,3],[1,3],
+    [7,8],[7,9],[6,7],
+    [10,11],[10,12],[11,12],
+    [13,14],[13,15]
+  ]
+},
+{ id:"respiratory", name:"Respiratory", color:"#457b9d", category:"exchange", radius:30,
+  desc:"Facilitates gas exchange — drawing in oxygen and expelling carbon dioxide — and regulates acid-base balance through CO₂ elimination.",
+  metricGroups:[
+    { group:"Ventilation", metrics:[
+      "Minute ventilation (VE)",
+      "Tidal volume",
+      "Breathing frequency",
+      "Ventilatory threshold (VT1 & VT2)",
+      "Respiratory exchange ratio (RER)"
+    ]},
+    { group:"Lung Function", metrics:[
+      "Forced vital capacity (FVC)",
+      "FEV1 — forced expiratory volume in 1 s",
+      "Oxygen saturation (SpO₂)"
+    ]},
+    { group:"Altitude & Gas", metrics:[
+      "SpO₂ / SaO₂ at altitude",
+      "Hypoxic ventilatory response (HVR)",
+      "Partial pressure of oxygen (PO₂)",
+      "VO₂ max — respiratory component",
+      "Substrate oxidation RER interpretation"
+    ]}
+  ],
+  metricLinks:[
+    [0,1],[0,2],[0,3],[3,4],[1,2],
+    [5,6],[5,7],[6,7],
+    [7,8],[8,9],[8,10],[11,12],[9,10]
+  ]
+},
+{ id:"nervous", name:"Nervous", color:"#f4d35e", category:"control", radius:36,
+  desc:"The body's command network — coordinates movement, processes sensation, governs autonomic function, and regulates all other systems.",
+  metricGroups:[
+    { group:"Neuromuscular", metrics:[
+      "Reaction time",
+      "Neural drive & motor unit recruitment",
+      "Motor unit conduction velocity",
+      "Central vs. peripheral fatigue indicators",
+      "Electromyography (EMG) — amplitude & frequency",
+      "Muscle activation patterns"
+    ]},
+    { group:"Performance Output", metrics:[
+      "Rate of force development (RFD)",
+      "Ground contact time",
+      "Flight time"
+    ]},
+    { group:"Environment & Cognition", metrics:[
+      "Cognitive performance in heat — reaction time, decision-making",
+      "Central fatigue in extreme environments"
+    ]},
+    { group:"Autonomic & Recovery", metrics:[
+      "Heart rate variability (HRV) — autonomic index",
+      "Neuromuscular fatigue via CMJ monitoring",
+      "Wellness scores — fatigue, mood"
+    ]}
+  ],
+  metricLinks:[
+    [0,1],[1,2],[1,3],[3,4],[4,5],[0,3],
+    [6,7],[6,8],[7,8],
+    [9,10],
+    [11,12],[11,13],[12,13],[3,11]
+  ]
+},
+{ id:"endocrine", name:"Endocrine", color:"#9b5de5", category:"control", radius:30,
+  desc:"Secretes hormones into the bloodstream to regulate metabolism, growth, stress response, reproductive function, and homeostasis.",
+  metricGroups:[
+    { group:"Anabolic Hormones", metrics:[
+      "Testosterone levels",
+      "Growth hormone (GH) levels",
+      "Insulin sensitivity & glucose tolerance"
+    ]},
+    { group:"Stress Axis", metrics:[
+      "Cortisol levels",
+      "Erythropoietin (EPO) levels"
+    ]},
+    { group:"Metabolic Rate", metrics:[
+      "Basal metabolic rate (BMR) suppression",
+      "Resting metabolic rate (RED-S marker)",
+      "Substrate utilization — fat vs. carbohydrate"
+    ]},
+    { group:"RED-S Markers", metrics:[
+      "Hormonal suppression — low estrogen / testosterone",
+      "Energy availability (EA) below 30 kcal/kg FFM",
+      "Bone stress injury incidence"
+    ]},
+    { group:"Altitude Response", metrics:[
+      "EPO response to hypoxic stimulus",
+      "Acclimatization hormonal markers"
+    ]}
+  ],
+  metricLinks:[
+    [0,1],[0,2],[1,2],
+    [3,4],[3,0],[3,1],
+    [5,6],[6,7],[5,7],
+    [8,9],[8,10],[9,10],
+    [4,11],[11,12]
+  ]
+},
+{ id:"musculoskeletal", name:"Musculo-skeletal", color:"#f77f00", category:"structural", radius:28,
+  desc:"Provides locomotion, posture, and protection. Muscles generate force and heat; bones store minerals and produce blood cells.",
+  metricGroups:[
+    { group:"Muscle Architecture", metrics:[
+      "Muscle fibre type composition — Type I, IIa, IIx",
+      "Muscle cross-sectional area",
+      "Muscle pennation angle",
+      "Peak torque & torque-velocity relationship",
+      "Rate of force development (RFD)"
+    ]},
+    { group:"Strength", metrics:[
+      "1RM — squat, bench, deadlift",
+      "Relative strength (1RM / kg bodyweight)",
+      "Isometric peak force",
+      "Grip strength",
+      "Force-velocity profile"
+    ]},
+    { group:"Power", metrics:[
+      "Peak power output (watts)",
+      "Countermovement jump height (CMJ)",
+      "Squat jump height",
+      "Drop jump reactive strength index (RSI)",
+      "Broad jump distance",
+      "Wingate anaerobic peak power",
+      "Bar velocity (VBT)"
+    ]},
+    { group:"Movement Quality", metrics:[
+      "Functional movement screen (FMS) scores",
+      "Joint range of motion (ROM)",
+      "Asymmetry index — limb-to-limb",
+      "Landing mechanics — valgus collapse, trunk lean",
+      "Flexibility & mobility assessments"
+    ]},
+    { group:"Body Composition", metrics:[
+      "Skeletal muscle mass",
+      "Bone mineral density (DEXA)",
+      "Fat-free mass / lean body mass"
+    ]}
+  ],
+  metricLinks:[
+    [0,1],[1,2],[3,4],[0,3],[0,4],
+    [5,6],[5,7],[6,7],[8,9],[7,9],
+    [10,11],[11,12],[12,13],[10,14],[13,15],[10,15],
+    [17,18],[18,19],[19,20],[17,20],
+    [21,22],[21,23],[22,23]
+  ]
+},
+{ id:"digestive", name:"Digestive", color:"#80b918", category:"metabolic", radius:28,
+  desc:"Breaks down food into absorbable nutrients, regulates energy storage and release, and hosts the microbiome that influences immunity and cognition.",
+  metricGroups:[
+    { group:"Lactate & Thresholds", metrics:[
+      "Blood lactate concentration",
+      "Lactate threshold & lactate turnpoint",
+      "Anaerobic threshold",
+      "Excess post-exercise oxygen consumption (EPOC)",
+      "Glycogen resynthesis rate"
+    ]},
+    { group:"Substrate Use", metrics:[
+      "Substrate utilization — fat vs. carbohydrate oxidation rates",
+      "Metabolic equivalents (METs)",
+      "Carbohydrate oxidation rate during exercise"
+    ]},
+    { group:"Nutrition & Gut", metrics:[
+      "Protein synthesis response (MPS)",
+      "Gut tolerance / GI distress markers",
+      "Supplement compliance & timing"
+    ]},
+    { group:"Energy Balance", metrics:[
+      "Total daily energy expenditure (TDEE)",
+      "Energy availability (EA)",
+      "Caloric deficit or surplus",
+      "Resting energy expenditure"
+    ]},
+    { group:"Macronutrients", metrics:[
+      "Carbohydrate intake (g/kg/day)",
+      "Protein intake (g/kg/day)",
+      "Fat intake (g/day & % total calories)",
+      "Fibre intake"
+    ]}
+  ],
+  metricLinks:[
+    [0,1],[1,2],[0,3],[1,4],[2,3],
+    [5,7],[5,6],[6,7],
+    [8,9],[9,10],
+    [11,12],[11,13],[12,14],[13,14],
+    [15,16],[15,17],[16,18],[15,18]
+  ]
+},
+{ id:"immune", name:"Immune", color:"#00b4d8", category:"defense", radius:28,
+  desc:"Defends against pathogens, coordinates inflammation, and responds to tissue damage from training — a key determinant of recovery capacity.",
+  metricGroups:[
+    { group:"Inflammatory Markers", metrics:[
+      "C-reactive protein (CRP)",
+      "Interleukin-6 (IL-6)",
+      "TNF-α (tumour necrosis factor)",
+      "Creatine kinase (CK) — muscle damage marker"
+    ]},
+    { group:"Blood Immune Cells", metrics:[
+      "White blood cell count & differentials",
+      "Reticulocyte count — training stress indicator"
+    ]},
+    { group:"Recovery Indicators", metrics:[
+      "Training monotony & strain",
+      "Wellness scores — soreness, sleep quality",
+      "Overreaching / overtraining markers"
+    ]},
+    { group:"Micronutrient Status", metrics:[
+      "Serum vitamin D (25-OH) — immune modulator",
+      "Zinc & selenium — antioxidant defence",
+      "Magnesium — anti-inflammatory role"
+    ]}
+  ],
+  metricLinks:[
+    [0,1],[0,2],[1,3],[0,3],[2,3],
+    [4,5],
+    [6,7],[6,8],[7,8],
+    [9,10],[9,11],[10,11]
+  ]
+},
+{ id:"renal", name:"Renal / Urinary", color:"#ff9f1c", category:"metabolic", radius:24,
+  desc:"Filters blood, regulates electrolyte and fluid balance, controls blood pressure and pH — critical for performance hydration management.",
+  metricGroups:[
+    { group:"Hydration Status", metrics:[
+      "Urine specific gravity (USG)",
+      "Urine osmolality",
+      "Urine colour (POMS scale)",
+      "Plasma osmolality",
+      "Pre/post-exercise body mass change",
+      "Urine output & colour in heat"
+    ]},
+    { group:"Electrolytes", metrics:[
+      "Sodium (serum & sweat)",
+      "Potassium",
+      "Chloride",
+      "Calcium & phosphorus",
+      "Magnesium levels"
+    ]},
+    { group:"Environmental Load", metrics:[
+      "Fluid loss rate per condition — heat, altitude, cold",
+      "Electrolyte depletion rate in heat",
+      "Plasma volume changes"
+    ]}
+  ],
+  metricLinks:[
+    [0,1],[1,2],[0,3],[3,4],[4,5],[1,3],
+    [6,7],[6,8],[7,9],[8,10],[7,8],
+    [11,12],[11,13],[4,11],[12,13]
+  ]
+},
+{ id:"reproductive", name:"Reproductive", color:"#f72585", category:"reproduction", radius:22,
+  desc:"Produces sex hormones that influence muscle mass, bone density, mood, and recovery — and is highly sensitive to energy availability and training stress.",
+  metricGroups:[
+    { group:"Sex Hormones", metrics:[
+      "Testosterone — anabolic & recovery marker",
+      "Estrogen — bone density & cardiovascular protection",
+      "LH & FSH — HPG axis integrity",
+      "Progesterone"
+    ]},
+    { group:"RED-S Markers", metrics:[
+      "Hormonal suppression index",
+      "Menstrual cycle regularity / amenorrhea",
+      "Bone stress injury incidence",
+      "Energy availability below 30 kcal/kg FFM"
+    ]},
+    { group:"Body Composition", metrics:[
+      "Body fat percentage — hormonal threshold",
+      "Fat-free mass — testosterone correlation"
+    ]}
+  ],
+  metricLinks:[
+    [0,1],[0,2],[1,2],[2,3],[0,3],
+    [4,5],[5,6],[4,7],[6,7],
+    [8,9],[8,0],[9,0]
+  ]
+},
+{ id:"integumentary", name:"Integumentary", color:"#e9c46a", category:"structural", radius:24,
+  desc:"Skin regulates core temperature through sweating and vasodilation — the primary interface between thermoregulation and the environment.",
+  metricGroups:[
+    { group:"Thermoregulation", metrics:[
+      "Core body temperature — rectal / ingestible pill",
+      "Skin temperature",
+      "Sweat rate (L/hour)",
+      "Sweat sodium concentration",
+      "Time to reach critical core temp (39–40°C)",
+      "Heat acclimatization adaptations"
+    ]},
+    { group:"Environmental Exposure", metrics:[
+      "Wet bulb globe temperature (WBGT)",
+      "Heat index",
+      "Wind chill index",
+      "Cold-induced vasodilation (CIVD) response"
+    ]},
+    { group:"Hydration & Nutrition", metrics:[
+      "Sweat rate — fluid loss estimation",
+      "Sweat electrolyte losses",
+      "Pre/post-exercise body mass change",
+      "Serum vitamin D — sun exposure & skin synthesis",
+      "Micronutrient status — skin integrity markers"
+    ]}
+  ],
+  metricLinks:[
+    [0,1],[0,2],[2,3],[0,4],[4,5],[1,4],
+    [6,7],[7,8],[8,9],[6,9],
+    [10,11],[10,12],[13,14],[11,12]
+  ]
+},
+{ id:"lymphatic", name:"Lymphatic", color:"#52b788", category:"defense", radius:22,
+  desc:"Returns interstitial fluid to circulation, transports dietary fats, and distributes immune cells — integral to recovery from exercise-induced inflammation.",
+  metricGroups:[
+    { group:"Body Composition", metrics:[
+      "Body fat percentage",
+      "Visceral fat area",
+      "Body mass index (BMI)",
+      "Waist-to-hip ratio",
+      "Fat-free mass / lean body mass",
+      "Bone mineral density (DEXA)"
+    ]},
+    { group:"Micronutrients", metrics:[
+      "Serum vitamin D (25-OH)",
+      "Serum ferritin & iron panel",
+      "Vitamin B12 & folate",
+      "Magnesium levels",
+      "Zinc & selenium"
+    ]},
+    { group:"Immune Recovery", metrics:[
+      "Lymphocyte count & NK cell activity",
+      "Post-exercise immune suppression window",
+      "CRP & cytokine clearance rate"
+    ]}
+  ],
+  metricLinks:[
+    [0,1],[0,2],[1,3],[2,4],[4,5],[0,4],
+    [6,7],[7,8],[9,10],[8,9],
+    [11,12],[12,13],[11,13]
+  ]
+},
+{ id:"you", name:"You", color:"#ffffff", category:"self", radius:52, isYou:true,
+  desc:"Every metric in this graph is a window into you — your current state, your adaptations, your limits, and your trajectory. You are the system all other systems serve.",
+  metricGroups:[
+    { group:"Performance Summary", metrics:[
+      "VO₂ max — whole-athlete oxygen ceiling",
+      "Functional threshold power (FTP)",
+      "Critical speed / critical power",
+      "1RM relative strength",
+      "Countermovement jump height (CMJ)"
+    ]},
+    { group:"Readiness & Load", metrics:[
+      "Acute:chronic workload ratio (ACWR)",
+      "HRV trend — autonomic readiness",
+      "Wellness composite score",
+      "Neuromuscular fatigue index",
+      "Session RPE (sRPE)"
+    ]},
+    { group:"Composition", metrics:[
+      "Body fat percentage",
+      "Lean body mass",
+      "Bone mineral density",
+      "Waist-to-hip ratio"
+    ]},
+    { group:"Resilience", metrics:[
+      "Energy availability (EA)",
+      "Sleep quality & duration",
+      "Inflammatory load (CRP, CK, IL-6)",
+      "Hydration status (USG / body mass Δ)"
+    ]}
+  ],
+  metricLinks:[
+    [0,1],[1,2],[0,2],[3,4],[0,3],
+    [5,6],[6,7],[5,8],[7,9],[6,8],
+    [10,11],[11,12],[10,13],[12,13],
+    [14,15],[15,16],[14,17],[16,17]
+  ]
+}
+];
+
+const LINKS = [
+  { source:"cardiovascular", target:"respiratory",    desc:"Pulmonary circulation: right heart sends deoxygenated blood to lungs; oxygenated blood returns to left heart.", strength:1.0 },
+  { source:"cardiovascular", target:"nervous",         desc:"Autonomic NS controls heart rate and vascular tone; baroreceptors feed blood pressure data to the medulla.", strength:0.8 },
+  { source:"cardiovascular", target:"endocrine",       desc:"Blood carries hormones to target organs; heart secretes ANP to regulate blood pressure.", strength:0.9 },
+  { source:"cardiovascular", target:"renal",           desc:"Kidneys filter ~1.2L/min of blood; RAAS regulates blood pressure via kidney–heart signalling.", strength:0.9 },
+  { source:"cardiovascular", target:"musculoskeletal", desc:"Muscles demand increased blood flow during exercise; bone marrow produces red blood cells.", strength:0.7 },
+  { source:"cardiovascular", target:"digestive",       desc:"Hepatic portal vein carries absorbed nutrients from gut to liver; gut wall requires constant perfusion.", strength:0.8 },
+  { source:"cardiovascular", target:"immune",          desc:"Blood transports white blood cells and antibodies; inflammatory signals alter vascular permeability.", strength:0.8 },
+  { source:"cardiovascular", target:"lymphatic",       desc:"Lymphatic system returns ~3L of plasma daily to the subclavian veins; lacteals drain dietary fat.", strength:0.85 },
+  { source:"cardiovascular", target:"integumentary",   desc:"Cutaneous blood flow regulates body temperature; skin colour reflects perfusion status.", strength:0.6 },
+  { source:"cardiovascular", target:"reproductive",    desc:"During pregnancy cardiac output increases 30–50% to support placental circulation.", strength:0.5 },
+  { source:"nervous",        target:"endocrine",       desc:"Hypothalamus bridges neural and hormonal control — secretes releasing hormones governing the pituitary.", strength:1.0 },
+  { source:"nervous",        target:"musculoskeletal", desc:"Motor neurons trigger muscle contractions via NMJ; proprioceptors feed position sense back to CNS.", strength:0.95 },
+  { source:"nervous",        target:"digestive",       desc:"Enteric NS ('second brain', ~500M neurons) governs gut motility; vagus nerve connects gut to brain.", strength:0.85 },
+  { source:"nervous",        target:"immune",          desc:"Stress hormones suppress immune function; cytokines (IL-1, IL-6) alter brain function and cause fever.", strength:0.75 },
+  { source:"nervous",        target:"integumentary",   desc:"Skin is densely innervated with mechanoreceptors, thermoreceptors, and nociceptors feeding the thalamus.", strength:0.8 },
+  { source:"nervous",        target:"renal",           desc:"Sympathetic NS regulates renal blood flow and renin secretion; hypothalamus releases ADH for water balance.", strength:0.7 },
+  { source:"nervous",        target:"reproductive",    desc:"GnRH pulses from hypothalamus control reproductive cycles; sexual response via autonomic + somatic NS.", strength:0.65 },
+  { source:"endocrine",      target:"musculoskeletal", desc:"GH and IGF-1 promote bone/muscle growth; testosterone increases muscle mass; oestrogen protects bone.", strength:0.85 },
+  { source:"endocrine",      target:"digestive",       desc:"Insulin/glucagon regulate blood glucose; gut hormones (ghrelin, GLP-1, CCK) signal hunger and satiety.", strength:0.9 },
+  { source:"endocrine",      target:"immune",          desc:"Cortisol is a potent immunosuppressant; thyroid hormones modulate immune cell proliferation.", strength:0.75 },
+  { source:"endocrine",      target:"renal",           desc:"Aldosterone promotes sodium retention; ADH controls water reabsorption in collecting ducts.", strength:0.9 },
+  { source:"endocrine",      target:"reproductive",    desc:"HPG axis: GnRH → LH/FSH → sex hormones. Feedback loops govern cycles, sperm production, and fertility.", strength:1.0 },
+  { source:"endocrine",      target:"integumentary",   desc:"Androgens stimulate sebaceous glands and hair follicles; MSH regulates skin pigmentation.", strength:0.6 },
+  { source:"respiratory",    target:"musculoskeletal", desc:"Diaphragm and intercostal muscles drive breathing; CO₂ from working muscles raises respiratory rate.", strength:0.8 },
+  { source:"respiratory",    target:"nervous",         desc:"Respiratory rhythm generated in the medulla; chemoreceptors sense CO₂/O₂/pH and adjust breathing.", strength:0.85 },
+  { source:"respiratory",    target:"immune",          desc:"Mucociliary escalator and alveolar macrophages form the lung's first immune defence layer.", strength:0.75 },
+  { source:"musculoskeletal",target:"renal",           desc:"Muscles produce creatinine filtered by kidneys; kidney disease impairs vitamin D activation → bone disease.", strength:0.6 },
+  { source:"musculoskeletal",target:"integumentary",   desc:"Subcutaneous fat cushions bone; muscle movement stretches skin; tendons attach near the skin surface.", strength:0.45 },
+  { source:"digestive",      target:"immune",          desc:"~70% of the immune system resides in the gut (GALT); microbiome trains immune tolerance.", strength:0.9 },
+  { source:"digestive",      target:"renal",           desc:"Kidneys filter metabolic byproducts of digestion: urea, uric acid, and ammonia.", strength:0.65 },
+  { source:"digestive",      target:"integumentary",   desc:"Nutrient absorption (vitamins A, C, D, E, zinc) directly impacts skin health; dysbiosis linked to acne.", strength:0.55 },
+  { source:"digestive",      target:"lymphatic",       desc:"Lacteals absorb dietary lipids into chyle, draining into the thoracic duct; Peyer's patches are gut lymphoid tissue.", strength:0.8 },
+  { source:"immune",         target:"lymphatic",       desc:"Lymph nodes filter lymph and are primary sites for immune activation; B and T cells proliferate there.", strength:1.0 },
+  { source:"immune",         target:"integumentary",   desc:"Skin contains Langerhans cells and mast cells as immune sentinels; hives and eczema reflect immune–skin axis.", strength:0.75 },
+  { source:"renal",          target:"integumentary",   desc:"Skin excretes small amounts of metabolic waste via sweat; in renal failure urea crystallises on skin.", strength:0.35 },
+  { source:"reproductive",   target:"musculoskeletal", desc:"Sex hormones affect muscle mass (testosterone) and bone density (oestrogen); relaxin loosens ligaments.", strength:0.7 },
+  { source:"reproductive",   target:"integumentary",   desc:"Pregnancy hormones cause skin changes; androgens regulate sebum and body hair patterns.", strength:0.55 },
+  { source:"lymphatic",      target:"renal",           desc:"Perinephric lymphatics drain the kidney; lymph flow maintains renal interstitial fluid balance.", strength:0.5 },
+  { source:"lymphatic",      target:"integumentary",   desc:"Dermal lymphatics drain interstitial fluid; lymphedema causes severe skin swelling and fibrosis.", strength:0.6 },
+  { source:"you", target:"cardiovascular",   desc:"Your heart beats ~100,000 times a day. Every emotion you feel alters its rhythm within seconds.", strength:0.9, isYouLink:true },
+  { source:"you", target:"respiratory",      desc:"You breathe ~20,000 times a day — the only autonomic function you can consciously override.", strength:0.9, isYouLink:true },
+  { source:"you", target:"nervous",          desc:"You are, in large part, your nervous system. Every thought and perception is an electrochemical pattern in this network.", strength:1.0, isYouLink:true },
+  { source:"you", target:"endocrine",        desc:"Your hormones colour every mood, drive every hunger, and shape your responses — largely without your awareness.", strength:0.85, isYouLink:true },
+  { source:"you", target:"musculoskeletal",  desc:"The body you move through the world with. Every gesture and posture is this system speaking.", strength:0.85, isYouLink:true },
+  { source:"you", target:"digestive",        desc:"Your gut microbiome influences mood and cognition so profoundly scientists call it the 'second brain'.", strength:0.8, isYouLink:true },
+  { source:"you", target:"immune",           desc:"Chronic stress directly suppresses this system. Your psychological state is immunological.", strength:0.8, isYouLink:true },
+  { source:"you", target:"renal",            desc:"Your kidneys filter your entire blood volume ~30 times per day, maintaining the chemistry life depends on.", strength:0.75, isYouLink:true },
+  { source:"you", target:"reproductive",     desc:"The system shaped by — and shaping — your hormonal identity, energy state, and long-term health.", strength:0.75, isYouLink:true },
+  { source:"you", target:"integumentary",    desc:"The boundary of you. ~1.8m² of sensor-packed living tissue is where you end and the world begins.", strength:0.8, isYouLink:true },
+  { source:"you", target:"lymphatic",        desc:"Running silently alongside your blood vessels, quietly defending you from thousands of threats right now.", strength:0.7, isYouLink:true },
+];
+
+const CATEGORIES = {
+  self:         { label:"You",           color:"#ffffff" },
+  transport:    { label:"Transport",     color:"#e63946" },
+  control:      { label:"Control",       color:"#9b5de5" },
+  exchange:     { label:"Exchange",      color:"#457b9d" },
+  structural:   { label:"Structural",    color:"#f77f00" },
+  metabolic:    { label:"Metabolic",     color:"#80b918" },
+  defense:      { label:"Defense",       color:"#00b4d8" },
+  reproduction: { label:"Reproduction",  color:"#f72585" },
+};
+
+// ─── HARDCODED MOTHER POSITIONS (relative to canvas center) ──────────────────
+const MOTHER_POS = {
+  you:             { dx:   0, dy:   0 },
+  // Inner ring — tightly connected control/transport systems
+  cardiovascular:  { dx:-210, dy:-120 },
+  nervous:         { dx: 215, dy: -85 },
+  respiratory:     { dx:  50, dy:-225 },
+  endocrine:       { dx: 220, dy: 115 },
+  // Outer ring — structural/metabolic/defense
+  musculoskeletal: { dx:  60, dy: 248 },
+  digestive:       { dx:-195, dy: 205 },
+  immune:          { dx:-255, dy:  25 },
+  renal:           { dx: -55, dy: 278 },
+  reproductive:    { dx: 175, dy: 258 },
+  integumentary:   { dx: 268, dy:-178 },
+  lymphatic:       { dx:-120, dy:-242 },
+};
+
+// ─── SUB-GRAPH CLUSTER POSITIONS ─────────────────────────────────────────────
+// Raw coordinate space 0..680 x 0..480, scaled at render time.
+// Each entry is an array of {x,y} matching flat metric order (group-by-group).
+const CLUSTER_LAYOUTS = {
+  cardiovascular: [
+    // Cardiac Function cluster (indices 0–5)
+    {x:155,y:140},{x:230,y:95},{x:230,y:185},{x:155,y:230},{x:90,y:185},{x:90,y:95},
+    // Blood Pressure (index 6)
+    {x:340,y:80},
+    // Oxygen Transport (7–9)
+    {x:460,y:110},{x:530,y:170},{x:460,y:230},
+    // Blood Markers (10–12)
+    {x:470,y:340},{x:390,y:380},{x:550,y:380},
+    // Workload & Recovery (13–15)
+    {x:180,y:360},{x:115,y:410},{x:255,y:410},
+  ],
+  respiratory: [
+    // Ventilation (0–4)
+    {x:155,y:150},{x:230,y:100},{x:230,y:200},{x:155,y:250},{x:80,y:200},
+    // Lung Function (5–7)
+    {x:380,y:110},{x:450,y:165},{x:380,y:220},
+    // Altitude & Gas (8–12)
+    {x:510,y:110},{x:580,y:175},{x:510,y:240},{x:450,y:330},{x:530,y:330},
+  ],
+  nervous: [
+    // Neuromuscular (0–5)
+    {x:140,y:130},{x:215,y:85},{x:215,y:175},{x:140,y:220},{x:65,y:175},{x:65,y:85},
+    // Performance Output (6–8)
+    {x:380,y:95},{x:450,y:150},{x:380,y:205},
+    // Env & Cognition (9–10)
+    {x:510,y:195},{x:510,y:275},
+    // Autonomic & Recovery (11–13)
+    {x:220,y:360},{x:155,y:415},{x:295,y:415},
+  ],
+  endocrine: [
+    // Anabolic Hormones (0–2)
+    {x:145,y:120},{x:215,y:75},{x:215,y:165},
+    // Stress Axis (3–4)
+    {x:360,y:85},{x:360,y:165},
+    // Metabolic Rate (5–7)
+    {x:490,y:130},{x:560,y:190},{x:490,y:250},
+    // RED-S Markers (8–10)
+    {x:430,y:350},{x:340,y:395},{x:520,y:395},
+    // Altitude Response (11–12)
+    {x:165,y:360},{x:100,y:415},
+  ],
+  musculoskeletal: [
+    // Muscle Architecture (0–4)
+    {x:130,y:130},{x:200,y:80},{x:200,y:180},{x:130,y:230},{x:60,y:180},
+    // Strength (5–9)
+    {x:345,y:85},{x:415,y:130},{x:345,y:180},{x:275,y:175},{x:415,y:55},
+    // Power (10–16)
+    {x:555,y:110},{x:620,y:165},{x:555,y:220},{x:490,y:275},{x:555,y:330},{x:490,y:165},{x:620,y:250},
+    // Movement Quality (17–21)
+    {x:380,y:365},{x:310,y:415},{x:450,y:415},{x:310,y:335},{x:450,y:335},
+    // Body Composition (22–24) — note: indices shifted because power has 7
+    {x:155,y:370},{x:90,y:415},{x:220,y:415},
+  ],
+  digestive: [
+    // Lactate & Thresholds (0–4)
+    {x:140,y:140},{x:210,y:90},{x:210,y:190},{x:140,y:240},{x:70,y:190},
+    // Substrate Use (5–7)
+    {x:360,y:90},{x:430,y:145},{x:360,y:200},
+    // Nutrition & Gut (8–10)
+    {x:530,y:130},{x:600,y:185},{x:530,y:240},
+    // Energy Balance (11–14)
+    {x:450,y:335},{x:375,y:380},{x:525,y:380},{x:450,y:280},
+    // Macronutrients (15–18)
+    {x:165,y:355},{x:95,y:400},{x:165,y:445},{x:235,y:400},
+  ],
+  immune: [
+    // Inflammatory (0–3)
+    {x:145,y:135},{x:215,y:85},{x:215,y:185},{x:145,y:235},
+    // Blood Immune Cells (4–5)
+    {x:360,y:105},{x:360,y:185},
+    // Recovery Indicators (6–8)
+    {x:490,y:120},{x:560,y:180},{x:490,y:240},
+    // Micronutrient Status (9–11)
+    {x:310,y:360},{x:230,y:410},{x:390,y:410},
+  ],
+  renal: [
+    // Hydration Status (0–5)
+    {x:145,y:140},{x:215,y:90},{x:215,y:190},{x:145,y:240},{x:75,y:190},{x:75,y:90},
+    // Electrolytes (6–10)
+    {x:390,y:100},{x:460,y:150},{x:390,y:200},{x:320,y:200},{x:460,y:210},
+    // Environmental Load (11–13)
+    {x:530,y:290},{x:460,y:340},{x:530,y:390},
+  ],
+  reproductive: [
+    // Sex Hormones (0–3)
+    {x:155,y:145},{x:225,y:95},{x:225,y:195},{x:155,y:245},
+    // RED-S Markers (4–7)
+    {x:390,y:100},{x:460,y:155},{x:390,y:210},{x:320,y:210},
+    // Body Composition (8–9)
+    {x:360,y:360},{x:290,y:405},
+  ],
+  integumentary: [
+    // Thermoregulation (0–5)
+    {x:140,y:135},{x:210,y:85},{x:210,y:185},{x:140,y:235},{x:70,y:185},{x:70,y:85},
+    // Environmental Exposure (6–9)
+    {x:390,y:100},{x:460,y:155},{x:390,y:210},{x:320,y:210},
+    // Hydration & Nutrition (10–14)
+    {x:510,y:285},{x:440,y:335},{x:510,y:385},{x:580,y:335},{x:440,y:405},
+  ],
+  lymphatic: [
+    // Body Composition (0–5)
+    {x:145,y:145},{x:215,y:95},{x:215,y:195},{x:145,y:245},{x:75,y:195},{x:75,y:95},
+    // Micronutrients (6–10)
+    {x:390,y:100},{x:460,y:155},{x:390,y:210},{x:320,y:155},{x:460,y:210},
+    // Immune Recovery (11–13)
+    {x:430,y:350},{x:360,y:400},{x:500,y:400},
+  ],
+  you: [
+    // Performance Summary (0–4)
+    {x:155,y:110},{x:225,y:60},{x:225,y:160},{x:155,y:210},{x:85,y:160},
+    // Readiness & Load (5–9)
+    {x:410,y:110},{x:480,y:60},{x:480,y:160},{x:410,y:210},{x:340,y:160},
+    // Composition (10–13)
+    {x:430,y:330},{x:360,y:380},{x:500,y:380},{x:430,y:280},
+    // Resilience (14–17)
+    {x:165,y:330},{x:95,y:380},{x:165,y:430},{x:235,y:380},
+  ],
+};
+
+// ─── SETUP ───────────────────────────────────────────────────────────────────
+const container   = document.getElementById('graph-container');
+const tooltip     = document.getElementById('tooltip');
+const edgePanel   = document.getElementById('edge-panel');
+const detailPanel = document.getElementById('detail-panel');
+const dpHeader    = document.getElementById('dp-header');
+const dpBody      = document.getElementById('dp-body');
+const legendEl    = document.getElementById('legend');
+const hintEl      = document.getElementById('hint');
+const svgD3       = d3.select('#graph');
+const motherLayer = svgD3.select('#mother-layer');
+const detailLayer = svgD3.select('#detail-layer');
+
+let width  = container.clientWidth;
+let height = container.clientHeight;
+let expandedSystem = null;
+
+// ─── DEFS ────────────────────────────────────────────────────────────────────
+const defs = svgD3.append('defs');
+function makeGlow(id, std) {
+  const f = defs.append('filter').attr('id',id).attr('x','-80%').attr('y','-80%').attr('width','260%').attr('height','260%');
+  f.append('feGaussianBlur').attr('in','SourceGraphic').attr('stdDeviation',std).attr('result','blur');
+  const m = f.append('feMerge');
+  m.append('feMergeNode').attr('in','blur');
+  m.append('feMergeNode').attr('in','SourceGraphic');
+}
+makeGlow('glow',4); makeGlow('glow-strong',9); makeGlow('glow-sub',5);
+
+const youFilter = defs.append('filter').attr('id','glow-you').attr('x','-120%').attr('y','-120%').attr('width','340%').attr('height','340%');
+youFilter.append('feGaussianBlur').attr('in','SourceGraphic').attr('stdDeviation',14).attr('result','blur1');
+youFilter.append('feGaussianBlur').attr('in','SourceGraphic').attr('stdDeviation',5).attr('result','blur2');
+const ym = youFilter.append('feMerge');
+ym.append('feMergeNode').attr('in','blur1'); ym.append('feMergeNode').attr('in','blur2'); ym.append('feMergeNode').attr('in','SourceGraphic');
+
+SYSTEMS.forEach(sys => {
+  if (sys.isYou) {
+    const g = defs.append('radialGradient').attr('id',`grad-${sys.id}`).attr('cx','50%').attr('cy','40%').attr('r','60%');
+    g.append('stop').attr('offset','0%').attr('stop-color','#ffffff');
+    g.append('stop').attr('offset','55%').attr('stop-color','#d8eeff');
+    g.append('stop').attr('offset','100%').attr('stop-color','#7ab8d4').attr('stop-opacity','0.6');
+  } else {
+    const g = defs.append('radialGradient').attr('id',`grad-${sys.id}`).attr('cx','35%').attr('cy','30%').attr('r','65%');
+    g.append('stop').attr('offset','0%').attr('stop-color', d3.color(sys.color).brighter(0.6));
+    g.append('stop').attr('offset','100%').attr('stop-color', d3.color(sys.color).darker(1.2));
+  }
+  sys.metricGroups.forEach((g, gi) => {
+    const gid = `grad-sub-${sys.id}-${gi}`;
+    const gr = defs.append('radialGradient').attr('id',gid).attr('cx','35%').attr('cy','30%').attr('r','65%');
+    gr.append('stop').attr('offset','0%').attr('stop-color', d3.color(sys.color).brighter(Math.max(0, 0.7 - gi*0.18)));
+    gr.append('stop').attr('offset','100%').attr('stop-color', d3.color(sys.color).darker(1.4 + gi*0.2));
+  });
+});
+
+// ─── ADJACENCY ───────────────────────────────────────────────────────────────
+const adjacency = {};
+SYSTEMS.forEach(s => adjacency[s.id] = []);
+LINKS.forEach(l => { adjacency[l.source].push(l.target); adjacency[l.target].push(l.source); });
+
+// ─── LEGEND ──────────────────────────────────────────────────────────────────
+legendEl.innerHTML = `<h4>System Category</h4>` + Object.entries(CATEGORIES).map(([,v]) =>
+  `<div class="legend-item"><div class="legend-dot" style="background:${v.color}"></div>${v.label}</div>`
+).join('');
+
+// ─── MOTHER GRAPH ─────────────────────────────────────────────────────────────
+function sysAbsPos(sys) {
+  const p = MOTHER_POS[sys.id];
+  return { x: width/2 + p.dx, y: height/2 + p.dy };
+}
+
+function drawMother() {
+  motherLayer.selectAll('*').remove();
+
+  // Links first (behind nodes)
+  const linkG = motherLayer.append('g');
+  const linkSel = linkG.selectAll('line').data(LINKS).join('line')
+    .attr('class','m-link')
+    .each(function(d) {
+      const sid = typeof d.source==='object'?d.source.id:d.source;
+      const tid = typeof d.target==='object'?d.target.id:d.target;
+      const s = SYSTEMS.find(x=>x.id===sid);
+      const t = SYSTEMS.find(x=>x.id===tid);
+      const sp = sysAbsPos(s), tp = sysAbsPos(t);
+      const dx = tp.x-sp.x, dy = tp.y-sp.y;
+      const dist = Math.sqrt(dx*dx+dy*dy)||1;
+      d3.select(this)
+        .attr('x1', sp.x + dx/dist*s.radius)
+        .attr('y1', sp.y + dy/dist*s.radius)
+        .attr('x2', tp.x - dx/dist*t.radius)
+        .attr('y2', tp.y - dy/dist*t.radius)
+        .attr('stroke', d.isYouLink ? 'rgba(255,255,255,0.6)' : (s?s.color:'#fff'))
+        .attr('stroke-width', d.isYouLink ? 1 : 1+d.strength*2.5)
+        .attr('stroke-dasharray', d.isYouLink ? '5 4' : null)
+        .attr('stroke-opacity', d.isYouLink ? 0.22 : 0.35)
+        .style('cursor','pointer');
+    });
+
+  linkSel.on('mouseenter', function(event,d) {
+    const sid=typeof d.source==='object'?d.source.id:d.source;
+    const tid=typeof d.target==='object'?d.target.id:d.target;
+    const src=SYSTEMS.find(s=>s.id===sid), tgt=SYSTEMS.find(s=>s.id===tid);
+    edgePanel.innerHTML=`<div class="edge-systems">${src.name} ↔ ${tgt.name}</div><div class="edge-desc">${d.desc}</div>`;
+    edgePanel.classList.add('visible');
+    d3.select(this).attr('stroke-opacity',1).attr('stroke-width',d.isYouLink?2.5:5);
+  }).on('mouseleave',function(event,d){
+    edgePanel.classList.remove('visible');
+    d3.select(this).attr('stroke-opacity',d.isYouLink?0.22:0.35).attr('stroke-width',d.isYouLink?1:1+d.strength*2.5);
+  });
+
+  // Nodes
+  const nodeG = motherLayer.append('g');
+  const nodeSel = nodeG.selectAll('g').data(SYSTEMS).join('g')
+    .attr('class','m-node')
+    .attr('transform', d => { const p=sysAbsPos(d); return `translate(${p.x},${p.y})`; });
+
+  nodeSel.append('circle').attr('class','pulse-ring node-ring')
+    .attr('r',d=>d.radius+10).attr('stroke',d=>d.color)
+    .attr('stroke-width',d=>d.isYou?2.5:1).attr('opacity',0.3)
+    .style('animation-delay',(d,i)=>`${i*0.28}s`);
+  nodeSel.filter(d=>d.isYou).append('circle').attr('class','pulse-ring node-ring')
+    .attr('r',d=>d.radius+22).attr('stroke','#ffffff').attr('stroke-width',1)
+    .attr('opacity',0.15).style('animation-delay','1.2s');
+  nodeSel.append('circle').attr('class','node-ring')
+    .attr('r',d=>d.radius+4).attr('stroke',d=>d.color)
+    .attr('stroke-width',d=>d.isYou?2:1).attr('opacity',0.5);
+  nodeSel.append('circle').attr('class','node-core')
+    .attr('r',d=>d.radius).attr('fill',d=>`url(#grad-${d.id})`)
+    .attr('stroke',d=>d.isYou?'rgba(255,255,255,.9)':d.color)
+    .attr('stroke-width',d=>d.isYou?2.5:1.5)
+    .attr('filter',d=>d.isYou?'url(#glow-you)':'url(#glow)');
+
+  nodeSel.each(function(d) {
+    const g = d3.select(this);
+    const words = d.name.split(/\s+\/?\s*/);
+    const txt = g.append('text').attr('class','node-label')
+      .attr('font-size',d.isYou?'17px':'11px')
+      .attr('fill',d.isYou?'#ffffff':'#d0e8f0')
+      .attr('letter-spacing',d.isYou?'0.2em':null).attr('y',4);
+    if (words.length>1) {
+      txt.text('');
+      words.forEach((w,i)=>txt.append('tspan').attr('x',0).attr('dy',i===0?`${-(words.length-1)*7}px`:'14px').text(w));
+    } else { txt.text(d.name); }
+    if (!d.isYou) {
+      const total = d.metricGroups.reduce((s,g)=>s+g.metrics.length,0);
+      g.append('text').attr('class','node-label').attr('font-size','9px')
+        .attr('fill',d.color).attr('opacity',0.8).attr('y',d.radius+17).text(`${total} metrics`);
+    }
+  });
+
+  nodeSel.on('mouseenter',function(event,d){
+    const neighbors = adjacency[d.id]||[];
+    const names = neighbors.map(nid=>SYSTEMS.find(s=>s.id===nid)?.name).filter(Boolean);
+    const total = d.isYou?'—':d.metricGroups.reduce((s,g)=>s+g.metrics.length,0);
+    tooltip.innerHTML=`
+      <h3>${d.name}${d.isYou?'':' System'}</h3><p>${d.desc}</p>
+      ${!d.isYou?`<div class="conn-label">Tracked metrics</div><div class="conn-list" style="color:${d.color};font-style:normal;font-family:'Rajdhani',sans-serif;font-size:.9rem;font-weight:700">${total}</div>`:''}
+      <div class="conn-label" style="margin-top:6px">Connects to (${names.length})</div>
+      <div class="conn-list">${names.join(' · ')}</div>`;
+    tooltip.classList.add('visible');
+    linkSel.attr('stroke-opacity',l=>{
+      const sid=typeof l.source==='object'?l.source.id:l.source;
+      const tid=typeof l.target==='object'?l.target.id:l.target;
+      return (sid===d.id||tid===d.id)?0.9:0.04;
+    }).attr('stroke-width',l=>{
+      const sid=typeof l.source==='object'?l.source.id:l.source;
+      const tid=typeof l.target==='object'?l.target.id:l.target;
+      return (sid===d.id||tid===d.id)?(l.isYouLink?2:3+l.strength*2):0.5;
+    });
+    nodeSel.attr('opacity',n=>(n.id===d.id||neighbors.includes(n.id))?1:0.18);
+    d3.select(this).select('.node-core').attr('filter',d.isYou?'url(#glow-you)':'url(#glow-strong)');
+  }).on('mousemove',function(event){
+    const [mx,my]=d3.pointer(event,document.body);
+    tooltip.style.left=`${mx+16}px`; tooltip.style.top=`${my-10}px`;
+  }).on('mouseleave',function(event,d){
+    tooltip.classList.remove('visible');
+    linkSel.attr('stroke-opacity',l=>l.isYouLink?0.22:0.35)
+      .attr('stroke-width',l=>l.isYouLink?1:1+l.strength*2.5);
+    nodeSel.attr('opacity',1);
+    d3.select(this).select('.node-core').attr('filter',d.isYou?'url(#glow-you)':'url(#glow)');
+  }).on('click',function(event,d){
+    event.stopPropagation();
+    expandIntoSystem(d);
+  });
+}
+
+// ─── ARC CONSTANTS ───────────────────────────────────────────────────────────
+const ARC_R   = 500;
+const ARC_CX  = -400; // off left edge
+
+// ─── DETAIL GRAPH ─────────────────────────────────────────────────────────────
+function expandIntoSystem(sys) {
+  if (expandedSystem === sys) return;
+  expandedSystem = sys;
+  tooltip.classList.remove('visible');
+  edgePanel.classList.remove('visible');
+  legendEl.classList.add('hidden');
+  hintEl.classList.add('hidden');
+  motherLayer.classed('hidden', true);
+  document.getElementById('header-sub').textContent =
+    `${sys.name}${sys.isYou?'':' System'} — ${sys.metricGroups.reduce((s,g)=>s+g.metrics.length,0)} metrics · click the arc to return`;
+  drawDetailGraph(sys);
+}
+
+function drawDetailGraph(sys) {
+  detailLayer.selectAll('*').remove();
+  detailLayer.classed('visible', true);
+
+  const arcCY = height / 2;
+
+  // Arc angles: where circle of radius ARC_R centered at (ARC_CX, arcCY) crosses x=0
+  const cosA = (0 - ARC_CX) / ARC_R; // = 400/500 = 0.8
+  const halfA = Math.acos(Math.min(1, Math.max(-1, cosA)));
+  const a1 = -halfA, a2 = halfA;
+  const arcX1 = ARC_CX + ARC_R * Math.cos(a1);
+  const arcY1 = arcCY  + ARC_R * Math.sin(a1);
+  const arcX2 = ARC_CX + ARC_R * Math.cos(a2);
+  const arcY2 = arcCY  + ARC_R * Math.sin(a2);
+  const arcPath = `M${arcX1},${arcY1} A${ARC_R},${ARC_R},0,0,1,${arcX2},${arcY2}`;
+
+  // Visible arc stroke
+  detailLayer.append('path').attr('d', arcPath)
+    .attr('fill','none').attr('stroke', sys.color)
+    .attr('stroke-width', 2).attr('stroke-opacity', 0)
+    .attr('filter','url(#glow-sub)')
+    .transition().duration(400).attr('stroke-opacity', 0.45);
+
+  // Hit area arc
+  detailLayer.append('path').attr('d', arcPath)
+    .attr('class','arc-back-hit')
+    .attr('stroke', sys.color).attr('stroke-opacity', 0)
+    .on('mouseenter', function() {
+      detailLayer.select('path').attr('stroke-opacity',0.9).attr('stroke-width',3);
+      tooltip.innerHTML=`<h3 style="font-size:.85rem">← Return to all systems</h3>`;
+      tooltip.classList.add('visible');
+    }).on('mousemove', function(event) {
+      const [mx,my]=d3.pointer(event,document.body);
+      tooltip.style.left=`${mx+14}px`; tooltip.style.top=`${my-10}px`;
+    }).on('mouseleave', function() {
+      detailLayer.select('path').attr('stroke-opacity',0.45).attr('stroke-width',2);
+      tooltip.classList.remove('visible');
+    }).on('click', () => collapseBack());
+
+  // Arc label at midpoint
+  const arcMidX = ARC_CX + ARC_R; // rightmost point of circle
+  detailLayer.append('text').attr('class','arc-hint')
+    .attr('x', arcMidX + 14).attr('y', arcCY - 12)
+    .text('← BACK').style('opacity',0)
+    .transition().delay(450).duration(300).style('opacity',1);
+  detailLayer.append('text').attr('class','arc-hint')
+    .attr('x', arcMidX + 14).attr('y', arcCY + 5)
+    .attr('fill', sys.color).attr('font-size','10px').attr('font-weight','700')
+    .text(sys.name.toUpperCase()).style('opacity',0)
+    .transition().delay(450).duration(300).style('opacity',1);
+
+  // ── Flat metric list ──
+  const flatMetrics = [];
+  sys.metricGroups.forEach((g,gi) => g.metrics.forEach(m =>
+    flatMetrics.push({ metricName:m, group:g.group, groupIndex:gi, dup:g.dup })));
+
+  // ── Scale raw cluster coords → canvas ──
+  const rawLayout = CLUSTER_LAYOUTS[sys.id] || flatMetrics.map((_,i) => ({
+    x: 100 + (i%5)*110, y: 100 + Math.floor(i/5)*110
+  }));
+
+  // Right-side canvas: from arcMidX+60 to width-30, top 40 to bottom 40
+  const marginL = arcMidX + 60;
+  const marginR = width - 36;
+  const marginT = 44;
+  const marginB = height - 44;
+  const rawW = 660, rawH = 470;
+  const sx = (marginR - marginL) / rawW;
+  const sy = (marginB - marginT) / rawH;
+  const sc = Math.min(sx, sy);
+  const ox = marginL + ((marginR - marginL) - rawW * sc) / 2;
+  const oy = marginT  + ((marginB - marginT) - rawH * sc) / 2;
+
+  const positions = rawLayout.map(p => ({ x: ox + p.x*sc, y: oy + p.y*sc }));
+
+  // ── Metric interlinks ──
+  if (sys.metricLinks) {
+    const mlG = detailLayer.append('g');
+    sys.metricLinks.forEach(([i,j], li) => {
+      if (!positions[i]||!positions[j]) return;
+      const p1=positions[i], p2=positions[j];
+      const mx=(p1.x+p2.x)/2, my=(p1.y+p2.y)/2;
+      const cdx=-(p2.y-p1.y)*0.12, cdy=(p2.x-p1.x)*0.12;
+      mlG.append('path')
+        .attr('d',`M${p1.x},${p1.y} Q${mx+cdx},${my+cdy} ${p2.x},${p2.y}`)
+        .attr('class','metric-link')
+        .attr('stroke', sys.color).attr('stroke-width', 1.1)
+        .attr('stroke-opacity', 0).attr('stroke-dasharray','4 3')
+        .transition().delay(380 + li*16).duration(320).attr('stroke-opacity',0.28);
+    });
+  }
+
+  // ── Sub-nodes ──
+  const subR = 24;
+  flatMetrics.forEach((m, i) => {
+    if (!positions[i]) return;
+    const pos = positions[i];
+    const gid = `grad-sub-${sys.id}-${m.groupIndex}`;
+
+    const sg = detailLayer.append('g').attr('class','sub-node-group')
+      .attr('transform',`translate(${arcMidX+20},${arcCY})`)
+      .style('opacity',0);
+
+    sg.append('circle').attr('r',subR+4).attr('fill','none')
+      .attr('stroke',sys.color).attr('stroke-width',0.7).attr('opacity',0.25);
+    sg.append('circle').attr('class','sub-node-core')
+      .attr('r',subR).attr('fill',`url(#${gid})`)
+      .attr('stroke',sys.color).attr('stroke-width',1.1)
+      .attr('filter','url(#glow-sub)');
+
+    const rawName = m.metricName.replace(/ —.*$/,'').replace(/\s*\(.*?\)\s*/g,'').trim();
+    const words = rawName.split(' ');
+    const lbl = sg.append('text').attr('class','sub-label').attr('font-size','7px')
+      .attr('y', words.length>2 ? -7 : -2);
+    if (words.length>3) {
+      const mid=Math.ceil(words.length/2);
+      [words.slice(0,mid).join(' '),words.slice(mid).join(' ')].forEach((line,li)=>
+        lbl.append('tspan').attr('x',0).attr('dy',li===0?'0':'10px').text(line));
+    } else if (words.length>1) {
+      words.forEach((w,wi)=>
+        lbl.append('tspan').attr('x',0).attr('dy',wi===0?'0':'10px').text(w));
+    } else { lbl.text(rawName); }
+
+    sg.on('mouseenter',function(){
+      const rows=dpBody.querySelectorAll('.dp-metric');
+      if(rows[i]){ rows[i].scrollIntoView({behavior:'smooth',block:'nearest'}); rows[i].style.background='rgba(255,255,255,0.06)'; rows[i].style.borderLeftColor=sys.color; }
+      d3.select(this).select('.sub-node-core').attr('filter','url(#glow-strong)');
+      tooltip.innerHTML=`<h3 style="font-size:.88rem">${m.metricName}</h3><p style="margin-top:3px;font-size:.68rem;color:#7ab8d4;font-style:italic">${m.group.replace(' (shared)','')}</p>`;
+      tooltip.classList.add('visible');
+    }).on('mousemove',function(event){
+      const [mx,my]=d3.pointer(event,document.body);
+      tooltip.style.left=`${mx+14}px`; tooltip.style.top=`${my-10}px`;
+    }).on('mouseleave',function(){
+      dpBody.querySelectorAll('.dp-metric').forEach(el=>{el.style.background='';el.style.borderLeftColor='';});
+      d3.select(this).select('.sub-node-core').attr('filter','url(#glow-sub)');
+      tooltip.classList.remove('visible');
+    });
+
+    sg.transition().delay(160+i*26).duration(460).ease(d3.easeCubicOut)
+      .attr('transform',`translate(${pos.x},${pos.y})`).style('opacity',1);
+  });
+
+  // ── Side panel ──
+  dpHeader.querySelector('h2').textContent = sys.name+(sys.isYou?'':' System');
+  dpHeader.querySelector('h2').style.color = sys.color;
+  dpHeader.querySelector('p').textContent  = sys.desc;
+  dpBody.innerHTML = flatMetrics.map((m,i)=>`
+    <div class="dp-metric" id="dpmet-${i}">
+      <div class="dp-metric-name">${m.metricName}</div>
+      <div class="dp-metric-group">${m.group.replace(' (shared)','')}${m.dup?` · also: ${m.dup.join(', ')}`:''}</div>
+    </div>`).join('');
+  detailPanel.classList.add('visible');
+}
+
+// ─── COLLAPSE ────────────────────────────────────────────────────────────────
+function collapseBack() {
+  expandedSystem = null;
+  detailLayer.classed('visible',false);
+  detailPanel.classList.remove('visible');
+  legendEl.classList.remove('hidden');
+  hintEl.classList.remove('hidden');
+  document.getElementById('header-sub').textContent='Physiology & Performance Metrics · Click any system to explore its measurements';
+  tooltip.classList.remove('visible');
+  setTimeout(()=>detailLayer.selectAll('*').remove(), 460);
+  motherLayer.classed('hidden',false);
+}
+
+// ─── INIT ────────────────────────────────────────────────────────────────────
+drawMother();
+
+const zoom = d3.zoom().scaleExtent([0.3,2.5]).on('zoom',e=>{
+  if (!expandedSystem) motherLayer.attr('transform',e.transform);
+});
+svgD3.call(zoom);
+
+window.addEventListener('resize',()=>{
+  width=container.clientWidth; height=container.clientHeight;
+  if (!expandedSystem) drawMother();
+  else drawDetailGraph(expandedSystem);
+});
+</script>
+</body>
+</html>

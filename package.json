@@ -1,0 +1,30 @@
+{
+  "name": "health-intelligence-landing",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite --mode ssr",
+    "build": "vite build && vite build --ssr src/entry.preview.tsx --outDir server",
+    "preview": "vite preview",
+    "lint": "eslint src --ext .ts,.tsx"
+  },
+  "dependencies": {
+    "@builder.io/qwik": "^1.19.0",
+    "@builder.io/qwik-city": "^1.19.0",
+    "@electric-sql/client": "1.5.1",
+    "d3": "^7.9.0",
+    "drizzle-orm": "^0.45.1",
+    "postgres": "^3.4.8"
+  },
+  "devDependencies": {
+    "@types/d3": "^7.4.3",
+    "@typescript-eslint/eslint-plugin": "^8.54.0",
+    "@typescript-eslint/parser": "^8.54.0",
+    "eslint": "^9.39.2",
+    "typescript": "^5.9.3",
+    "vite": "5.4.21"
+  },
+  "volta": {
+    "node": "20.20.0"
+  }
+}

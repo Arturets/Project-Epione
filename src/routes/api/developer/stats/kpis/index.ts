@@ -1,0 +1,21 @@
+import type { RequestHandler } from '@builder.io/qwik-city';
+import { requireDeveloperAccess } from '../../../../../lib/admin-auth';
+import { readDatabase } from '../../../../../lib/db';
+import { getKpis } from '../../../../../lib/developer-stats';
+import { parseDateRange } from '../../../../../lib/events';
+import { sendApiError } from '../../../../../lib/http';
+
+export const onGet: RequestHandler = async (event) => {
+  try {
+    await requireDeveloperAccess(event);
+    const db = await readDatabase();
+    const window = parseDateRange(event.url.searchParams, { hours: 24 });
+
+    event.json(200, {
+      ok: true,
+      data: getKpis(db, window)
+    });
+  } catch (error) {
+    sendApiError(event, error);
+  }
+};

@@ -1,0 +1,66 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: health-postgres
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=health_app
+      - POSTGRES_USER=health
+      - POSTGRES_PASSWORD=health
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U health -d health_app']
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: dev
+    container_name: health-app
+    ports:
+      - '3000:3000'
+    environment:
+      - DEPLOYMENT_MODE=local
+      - DATABASE_URL=postgres://health:health@postgres:5432/health_app
+      - OTEL_ENABLED=false
+      - SESSION_SECRET=${SESSION_SECRET:-replace-with-random-secret}
+      - APP_BASE_URL=${APP_BASE_URL:-http://localhost:3000}
+      - OAUTH_SIMULATION_MODE=${OAUTH_SIMULATION_MODE:-true}
+      - OAUTH_APPLE_CLIENT_ID=${OAUTH_APPLE_CLIENT_ID:-}
+      - OAUTH_APPLE_CLIENT_SECRET=${OAUTH_APPLE_CLIENT_SECRET:-}
+      - OAUTH_GOOGLE_CLIENT_ID=${OAUTH_GOOGLE_CLIENT_ID:-}
+      - OAUTH_GOOGLE_CLIENT_SECRET=${OAUTH_GOOGLE_CLIENT_SECRET:-}
+      - OAUTH_MICROSOFT_CLIENT_ID=${OAUTH_MICROSOFT_CLIENT_ID:-}
+      - OAUTH_MICROSOFT_CLIENT_SECRET=${OAUTH_MICROSOFT_CLIENT_SECRET:-}
+      - OAUTH_SAMSUNG_CLIENT_ID=${OAUTH_SAMSUNG_CLIENT_ID:-}
+      - OAUTH_SAMSUNG_CLIENT_SECRET=${OAUTH_SAMSUNG_CLIENT_SECRET:-}
+      - OAUTH_GITHUB_CLIENT_ID=${OAUTH_GITHUB_CLIENT_ID:-}
+      - OAUTH_GITHUB_CLIENT_SECRET=${OAUTH_GITHUB_CLIENT_SECRET:-}
+      - OAUTH_LINKEDIN_CLIENT_ID=${OAUTH_LINKEDIN_CLIENT_ID:-}
+      - OAUTH_LINKEDIN_CLIENT_SECRET=${OAUTH_LINKEDIN_CLIENT_SECRET:-}
+      - TWO_FACTOR_ISSUER=${TWO_FACTOR_ISSUER:-Health Intelligence}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      # Bind mount source code for hot reload
+      - ./src:/app/src
+      - ./tsconfig.json:/app/tsconfig.json
+      - ./vite.config.ts:/app/vite.config.ts
+    command: pnpm dev --host 0.0.0.0 --port 3000
+    develop:
+      watch:
+        - action: sync
+          path: ./src
+          target: /app/src
+        - action: rebuild
+          path: ./package.json
+
+volumes:
+  postgres-data:

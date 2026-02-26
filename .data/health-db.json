@@ -1,0 +1,656 @@
+{
+  "users": [
+    {
+      "id": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "email": "admin@admin.com",
+      "passwordHash": "pbkdf2$210000$3e32c42ec4bda800e19575c536a51b5f$3fb78d1397f086dc8730f9b49f69424c673434b5961624896211dcc967bf318f7997fad78deb4a17f62f239489439889c8d65da5bd90b65265ef9add049f2b2d",
+      "oauthProviders": {},
+      "role": "admin",
+      "adminApiKey": "93380d74-fde1-40a8-8b22-74b9c5de7fd1",
+      "createdAt": "2026-02-25T15:53:13.209Z",
+      "updatedAt": "2026-02-26T14:20:49.547Z",
+      "appleHealthConsent": true,
+      "lastAppleHealthSyncAt": "2026-02-25T18:23:28.250Z",
+      "twoFactor": {
+        "enabled": true,
+        "secret": "AYUKS5APCIXA5GO2MOFET3RWVJOYWZQI",
+        "pendingSecret": null,
+        "enabledAt": "2026-02-26T14:20:49.547Z",
+        "recoveryCodes": [
+          "50E1ABC1",
+          "71643EF9",
+          "1EC8A8DA",
+          "A697EF83",
+          "5ACB6B2D",
+          "3EE00B9A",
+          "D44857FA",
+          "997235C9"
+        ]
+      }
+    }
+  ],
+  "sessions": [
+    {
+      "id": "cd95b6a1-b309-4149-9d81-7b1397acc535",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "csrfToken": "d257ac47868c0228122ab2ea76d72a17ce7045b23062a380",
+      "createdAt": "2026-02-26T14:26:51.502Z",
+      "lastSeenAt": "2026-02-26T14:37:17.782Z",
+      "expiresAt": "2026-03-28T14:37:17.781Z"
+    }
+  ],
+  "authChallenges": [],
+  "metrics": [
+    {
+      "id": "74968bc9-a976-458d-9efb-3749f78e37bb",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "metricName": "weight",
+      "value": 80.8,
+      "unit": "kg",
+      "note": "Imported from Apple Health",
+      "recordedAt": "2026-02-25T18:23:28.250Z",
+      "syncedFrom": "apple_health",
+      "createdAt": "2026-02-25T18:23:28.250Z",
+      "updatedAt": "2026-02-25T18:23:28.250Z"
+    },
+    {
+      "id": "45b38024-a737-4e42-a711-4fba048b39b3",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "metricName": "body_fat",
+      "value": 20.9,
+      "unit": "%",
+      "note": "Imported from Apple Health",
+      "recordedAt": "2026-02-25T18:23:28.250Z",
+      "syncedFrom": "apple_health",
+      "createdAt": "2026-02-25T18:23:28.250Z",
+      "updatedAt": "2026-02-25T18:23:28.250Z"
+    },
+    {
+      "id": "b8c441d4-7c9a-4494-a8a8-4eb00ce6c3f1",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "metricName": "rhr",
+      "value": 58,
+      "unit": "bpm",
+      "note": "Imported from Apple Health",
+      "recordedAt": "2026-02-25T18:23:28.250Z",
+      "syncedFrom": "apple_health",
+      "createdAt": "2026-02-25T18:23:28.250Z",
+      "updatedAt": "2026-02-25T18:23:28.250Z"
+    },
+    {
+      "id": "f0924acc-37a9-41cf-800e-30f02c9f87b9",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "metricName": "hrv",
+      "value": 56,
+      "unit": "ms",
+      "note": "Imported from Apple Health",
+      "recordedAt": "2026-02-25T18:23:28.250Z",
+      "syncedFrom": "apple_health",
+      "createdAt": "2026-02-25T18:23:28.250Z",
+      "updatedAt": "2026-02-25T18:23:28.250Z"
+    },
+    {
+      "id": "b1172ead-6b31-4593-8c59-8523b0840648",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "metricName": "sleep",
+      "value": 7.1,
+      "unit": "hours",
+      "note": "Imported from Apple Health",
+      "recordedAt": "2026-02-25T18:23:28.250Z",
+      "syncedFrom": "apple_health",
+      "createdAt": "2026-02-25T18:23:28.250Z",
+      "updatedAt": "2026-02-25T18:23:28.250Z"
+    }
+  ],
+  "userPreferences": [
+    {
+      "id": "696ae9ca-f957-4079-a8fd-5d4c413de1d2",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "weightUnit": "kg",
+      "distanceUnit": "km",
+      "createdAt": "2026-02-25T15:53:13.257Z",
+      "updatedAt": "2026-02-25T15:53:13.257Z"
+    }
+  ],
+  "snapshots": [],
+  "auditLogs": [
+    {
+      "id": "878daddc-47a4-4837-8d53-33980fef8672",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "signup",
+      "metadata": {
+        "method": "password"
+      },
+      "createdAt": "2026-02-25T15:53:13.258Z"
+    },
+    {
+      "id": "8269402a-3dee-46e3-b7ae-49c9679f1491",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "login",
+      "metadata": {
+        "method": "password"
+      },
+      "createdAt": "2026-02-25T15:57:05.906Z"
+    },
+    {
+      "id": "840ba4bb-676f-42d3-aa74-089fe15fe93d",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "apple_sync_consent",
+      "metadata": {
+        "consentGrantedAt": "2026-02-25T18:23:28.250Z"
+      },
+      "createdAt": "2026-02-25T18:23:28.251Z"
+    },
+    {
+      "id": "31c915f1-12ab-4dbc-8fef-46ba2b0bf3fd",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "apple_sync",
+      "metadata": {
+        "metricsImported": 5,
+        "syncedAt": "2026-02-25T18:23:28.250Z"
+      },
+      "createdAt": "2026-02-25T18:23:28.251Z"
+    },
+    {
+      "id": "ee9767b6-420b-475e-a72c-692381d61d39",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "two_factor_setup_started",
+      "metadata": {
+        "issuer": "Health Intelligence"
+      },
+      "createdAt": "2026-02-26T14:17:51.489Z"
+    },
+    {
+      "id": "99674e40-ebec-49a8-a270-4d30c5f6fb04",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "two_factor_setup_started",
+      "metadata": {
+        "issuer": "Health Intelligence"
+      },
+      "createdAt": "2026-02-26T14:20:06.721Z"
+    },
+    {
+      "id": "2c9f4ab9-2a7b-492b-9b5e-fac3e45b71a7",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "two_factor_enabled",
+      "metadata": {
+        "recoveryCodesGenerated": 8
+      },
+      "createdAt": "2026-02-26T14:20:49.548Z"
+    },
+    {
+      "id": "e0485c07-cbb2-42f5-ad40-e327fde0843d",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "logout",
+      "metadata": {},
+      "createdAt": "2026-02-26T14:26:37.620Z"
+    },
+    {
+      "id": "6255fbc7-0505-4b59-ac69-fa221ed4764f",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "login",
+      "metadata": {
+        "method": "password",
+        "status": "two_factor_required"
+      },
+      "createdAt": "2026-02-26T14:26:41.871Z"
+    },
+    {
+      "id": "c53e87a4-e8c4-46ea-be28-c2e762a8c4d9",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "two_factor_verified",
+      "metadata": {
+        "method": "password",
+        "provider": null,
+        "usedRecoveryCode": false
+      },
+      "createdAt": "2026-02-26T14:26:51.503Z"
+    },
+    {
+      "id": "317ba873-4b4a-4ca6-86ad-0baf7ff78709",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "login",
+      "metadata": {
+        "method": "password",
+        "status": "two_factor_passed"
+      },
+      "createdAt": "2026-02-26T14:26:51.503Z"
+    }
+  ],
+  "events": [
+    {
+      "id": "6ea7cc8e-1a74-452f-ab3f-998960f41733",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "page_visited",
+      "metadata": {
+        "route": "/developer/console/",
+        "referrer": "http://localhost:5173/developer/"
+      },
+      "createdAt": "2026-02-25T15:55:57.073Z"
+    },
+    {
+      "id": "da9305ee-c4ee-4688-ae0f-b62b3bee2b1b",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "page_visited",
+      "metadata": {
+        "route": "/developer/console/",
+        "referrer": "http://localhost:5173/developer/"
+      },
+      "createdAt": "2026-02-25T15:56:29.726Z"
+    },
+    {
+      "id": "6360f335-6245-41fb-be0f-e7cc947ea1f8",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "page_visited",
+      "metadata": {
+        "route": "/coach/dashboard/",
+        "referrer": "http://localhost:5173/developer/console/"
+      },
+      "createdAt": "2026-02-25T15:56:31.024Z"
+    },
+    {
+      "id": "7eee2833-a10e-40d1-b745-1939056fa53c",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "page_visited",
+      "metadata": {
+        "route": "/developer/console/",
+        "referrer": "http://localhost:5173/developer/"
+      },
+      "createdAt": "2026-02-25T15:56:33.406Z"
+    },
+    {
+      "id": "6605bbe8-a406-46c9-81d3-72e4707df4cc",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "page_visited",
+      "metadata": {
+        "route": "/developer/console/",
+        "referrer": "http://localhost:5173/dashboard/"
+      },
+      "createdAt": "2026-02-25T15:56:41.443Z"
+    },
+    {
+      "id": "67606b74-247e-4ab9-bd68-d38c99b1345c",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "page_visited",
+      "metadata": {
+        "route": "/coach/dashboard/",
+        "referrer": "http://localhost:5173/developer/console/"
+      },
+      "createdAt": "2026-02-25T15:56:42.508Z"
+    },
+    {
+      "id": "f3b92ccf-bfcc-41e3-8f4c-545eca9a30bf",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "page_visited",
+      "metadata": {
+        "route": "/developer/console/",
+        "referrer": "http://localhost:5173/integrations/"
+      },
+      "createdAt": "2026-02-25T15:57:23.651Z"
+    },
+    {
+      "id": "9c029aec-8c58-4424-9b3f-2cf151333d2b",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "page_visited",
+      "metadata": {
+        "route": "/coach/dashboard/",
+        "referrer": "http://localhost:5173/developer/console/"
+      },
+      "createdAt": "2026-02-25T15:57:25.564Z"
+    },
+    {
+      "id": "e567c4aa-2514-4c58-bece-aa22d0b6049e",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "page_visited",
+      "metadata": {
+        "route": "/developer/console/",
+        "referrer": "http://localhost:5173/integrations/"
+      },
+      "createdAt": "2026-02-25T15:57:29.046Z"
+    },
+    {
+      "id": "e1c7a84a-9b12-401a-a0bd-428aaec57d92",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "intervention_selected",
+      "metadata": {
+        "interventionId": "weight_training_5x5",
+        "selectedInterventions": [
+          "weight_training_5x5"
+        ],
+        "durationWeeks": 8
+      },
+      "createdAt": "2026-02-25T16:19:09.111Z"
+    },
+    {
+      "id": "7fe425a2-d7b4-44c1-b794-45fbd42dada1",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "page_visited",
+      "metadata": {
+        "route": "/developer/console/",
+        "referrer": "http://localhost:5173/developer/"
+      },
+      "createdAt": "2026-02-25T17:52:26.247Z"
+    },
+    {
+      "id": "2b6efce9-b26a-462e-a156-5834f1e88c2a",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "page_visited",
+      "metadata": {
+        "route": "/developer/console/",
+        "referrer": "http://localhost:5173/developer/"
+      },
+      "createdAt": "2026-02-25T18:10:29.825Z"
+    },
+    {
+      "id": "615478d8-64f1-47a6-b68e-cced4ab19625",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "page_visited",
+      "metadata": {
+        "route": "/developer/console/",
+        "referrer": "http://localhost:5173/dashboard/"
+      },
+      "createdAt": "2026-02-25T18:11:26.309Z"
+    },
+    {
+      "id": "f084471e-0dce-4e1f-bc6a-e516cb2a2c88",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "page_visited",
+      "metadata": {
+        "route": "/developer/console/",
+        "referrer": "http://localhost:5173/dashboard/"
+      },
+      "createdAt": "2026-02-25T18:21:16.826Z"
+    },
+    {
+      "id": "53f306c1-28a0-4619-8d87-497dc70e13e8",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "page_visited",
+      "metadata": {
+        "route": "/developer/console/",
+        "referrer": "http://localhost:5173/dashboard/"
+      },
+      "createdAt": "2026-02-25T18:21:19.089Z"
+    },
+    {
+      "id": "b3673c6a-af94-420e-8759-08385333357a",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "applehealth_sync",
+      "metadata": {
+        "status": "success",
+        "count": 5,
+        "syncedMetrics": [
+          "weight",
+          "body_fat",
+          "rhr",
+          "hrv",
+          "sleep"
+        ]
+      },
+      "createdAt": "2026-02-25T18:23:28.252Z"
+    },
+    {
+      "id": "85d97074-3111-4599-923d-33dec2ec45a9",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "page_visited",
+      "metadata": {
+        "route": "/developer/console/",
+        "referrer": "http://localhost:5173/dashboard/"
+      },
+      "createdAt": "2026-02-26T08:39:13.271Z"
+    },
+    {
+      "id": "317ff644-57e1-4053-b77e-4f58ef479473",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "page_visited",
+      "metadata": {
+        "route": "/anatomy/",
+        "referrer": "http://localhost:5173/developer/console/"
+      },
+      "createdAt": "2026-02-26T08:39:49.156Z"
+    },
+    {
+      "id": "2bf0ff7a-75c1-46a1-825c-e200ae13e6e9",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "page_visited",
+      "metadata": {
+        "route": "/developer/console/",
+        "referrer": "http://localhost:5173/dashboard/"
+      },
+      "createdAt": "2026-02-26T14:26:55.217Z"
+    }
+  ],
+  "interventionVersions": [
+    {
+      "id": "710cb0dc-5c30-47ad-a9da-8c4ad5b687a5",
+      "interventionId": "weight_training_5x5",
+      "versionNumber": 1,
+      "status": "published",
+      "name": "Weight Training (Starting Strength 5x5)",
+      "category": "strength",
+      "durationWeeks": 8,
+      "frequency": "3x/week",
+      "description": "Barbell compound training focused on progressive overload for strength and lean mass.",
+      "effects": [
+        {
+          "metric": "weight",
+          "changeValue": 2.3,
+          "unit": "kg",
+          "confidence": "moderate",
+          "assumptions": "Average adherence, sufficient recovery and protein intake.",
+          "range": [
+            1.4,
+            3.2
+          ]
+        },
+        {
+          "metric": "body_fat",
+          "changeValue": -1,
+          "unit": "%",
+          "confidence": "low",
+          "assumptions": "Assumes mostly maintenance calories.",
+          "range": [
+            -2,
+            0
+          ]
+        },
+        {
+          "metric": "vo2_max",
+          "changeValue": 3,
+          "unit": "%",
+          "confidence": "low",
+          "assumptions": "Indirect transfer from improved work capacity.",
+          "range": [
+            1,
+            5
+          ]
+        }
+      ],
+      "contraindications": [
+        {
+          "scenario": "heavy_cardio + weight_training + caloric_deficit",
+          "warning": "Combining high-volume cardio with strength training in a caloric deficit can impair hypertrophy and recovery. Prioritize sleep and protein intake."
+        }
+      ],
+      "studySource": null,
+      "createdBy": "system",
+      "createdAt": "2026-02-25T15:55:57.092Z",
+      "updatedAt": "2026-02-25T15:55:57.092Z"
+    },
+    {
+      "id": "5500c604-bf0c-4822-b46e-8c67562cf4c7",
+      "interventionId": "cardio_moderate_3x",
+      "versionNumber": 1,
+      "status": "published",
+      "name": "Cardio (Moderate Intensity, 3x/week)",
+      "category": "cardio",
+      "durationWeeks": 8,
+      "frequency": "3x/week",
+      "description": "Zone 2 + moderate interval conditioning for cardiovascular health.",
+      "effects": [
+        {
+          "metric": "weight",
+          "changeValue": -1.8,
+          "unit": "kg",
+          "confidence": "moderate",
+          "assumptions": "No compensatory overeating.",
+          "range": [
+            -2.3,
+            -1.3
+          ]
+        },
+        {
+          "metric": "vo2_max",
+          "changeValue": 10,
+          "unit": "%",
+          "confidence": "moderate",
+          "assumptions": "Consistent frequency and progressive overload.",
+          "range": [
+            7,
+            12
+          ]
+        },
+        {
+          "metric": "rhr",
+          "changeValue": -5,
+          "unit": "bpm",
+          "confidence": "moderate",
+          "assumptions": "No concurrent illness or overtraining.",
+          "range": [
+            -7,
+            -3
+          ]
+        },
+        {
+          "metric": "hrv",
+          "changeValue": 10,
+          "unit": "%",
+          "confidence": "moderate",
+          "assumptions": "Adequate recovery and sleep quality.",
+          "range": [
+            6,
+            14
+          ]
+        }
+      ],
+      "contraindications": [
+        {
+          "scenario": "heavy_cardio + severe_sleep_debt",
+          "warning": "High cardio load with chronic sleep debt may worsen stress and blunt recovery."
+        }
+      ],
+      "studySource": null,
+      "createdBy": "system",
+      "createdAt": "2026-02-25T15:55:57.092Z",
+      "updatedAt": "2026-02-25T15:55:57.092Z"
+    },
+    {
+      "id": "d71ff091-34a8-469b-8e4b-34ffefc917a4",
+      "interventionId": "diet_500_deficit",
+      "versionNumber": 1,
+      "status": "published",
+      "name": "Diet Intervention (500 kcal/day deficit)",
+      "category": "diet",
+      "durationWeeks": 8,
+      "frequency": "Daily",
+      "description": "Structured clean eating plan with moderate caloric deficit and high satiety foods.",
+      "effects": [
+        {
+          "metric": "weight",
+          "changeValue": -4.1,
+          "unit": "kg",
+          "confidence": "moderate",
+          "assumptions": "Average adherence around 500 kcal/day deficit.",
+          "range": [
+            -5.4,
+            -3.2
+          ]
+        },
+        {
+          "metric": "body_fat",
+          "changeValue": -2.5,
+          "unit": "%",
+          "confidence": "moderate",
+          "assumptions": "Protein intake is maintained.",
+          "range": [
+            -3.2,
+            -1.8
+          ]
+        },
+        {
+          "metric": "sleep",
+          "changeValue": 0,
+          "unit": "hours",
+          "confidence": "low",
+          "assumptions": "Neutral effect unless hunger disrupts sleep.",
+          "range": [
+            -0.2,
+            0.2
+          ]
+        }
+      ],
+      "contraindications": [
+        {
+          "scenario": "aggressive_deficit + high_training_volume",
+          "warning": "Combining a large caloric deficit with high training volume can increase fatigue, hunger, and muscle loss risk."
+        }
+      ],
+      "studySource": null,
+      "createdBy": "system",
+      "createdAt": "2026-02-25T15:55:57.092Z",
+      "updatedAt": "2026-02-25T15:55:57.092Z"
+    },
+    {
+      "id": "c54d941d-78bf-4da4-b6ec-4e61298ef244",
+      "interventionId": "screen_time_reduction",
+      "versionNumber": 1,
+      "status": "published",
+      "name": "Screen Time Reduction (No screens 1 hour before bed)",
+      "category": "sleep",
+      "durationWeeks": 4,
+      "frequency": "Daily",
+      "description": "Reduces evening screen exposure to improve sleep onset and recovery.",
+      "effects": [
+        {
+          "metric": "sleep",
+          "changeValue": 0.75,
+          "unit": "hours",
+          "confidence": "moderate",
+          "assumptions": "Consistent digital sunset routine.",
+          "range": [
+            0.5,
+            1
+          ]
+        },
+        {
+          "metric": "hrv",
+          "changeValue": 15,
+          "unit": "%",
+          "confidence": "moderate",
+          "assumptions": "Sleep quality improves alongside sleep duration.",
+          "range": [
+            10,
+            18
+          ]
+        },
+        {
+          "metric": "stress",
+          "changeValue": -2,
+          "unit": "1-10",
+          "confidence": "moderate",
+          "assumptions": "Reduced cognitive load and better evening wind-down.",
+          "range": [
+            -3,
+            -1
+          ]
+        }
+      ],
+      "contraindications": [],
+      "studySource": null,
+      "createdBy": "system",
+      "createdAt": "2026-02-25T15:55:57.092Z",
+      "updatedAt": "2026-02-25T15:55:57.092Z"
+    }
+  ],
+  "graphCustomMetrics": [],
+  "graphCustomEdges": []
+}

@@ -1,0 +1,88 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: health-postgres-prod
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB:-health_app}
+      - POSTGRES_USER=${POSTGRES_USER:-health}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-health}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-health} -d ${POSTGRES_DB:-health_app}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  app:
+    image: health-app:latest
+    container_name: health-app-prod
+    restart: unless-stopped
+    ports:
+      - '3000:3000'
+    environment:
+      - DEPLOYMENT_MODE=production
+      - DATABASE_URL=${DATABASE_URL:-postgres://${POSTGRES_USER:-health}:${POSTGRES_PASSWORD:-health}@postgres:5432/${POSTGRES_DB:-health_app}}
+      - OTEL_ENABLED=${OTEL_ENABLED:-false}
+      - SESSION_SECRET=${SESSION_SECRET}
+      - APP_BASE_URL=${APP_BASE_URL}
+      - OAUTH_SIMULATION_MODE=${OAUTH_SIMULATION_MODE:-false}
+      - OAUTH_APPLE_CLIENT_ID=${OAUTH_APPLE_CLIENT_ID}
+      - OAUTH_APPLE_CLIENT_SECRET=${OAUTH_APPLE_CLIENT_SECRET}
+      - OAUTH_APPLE_AUTHORIZE_URL=${OAUTH_APPLE_AUTHORIZE_URL}
+      - OAUTH_APPLE_TOKEN_URL=${OAUTH_APPLE_TOKEN_URL}
+      - OAUTH_APPLE_USERINFO_URL=${OAUTH_APPLE_USERINFO_URL}
+      - OAUTH_APPLE_SCOPES=${OAUTH_APPLE_SCOPES}
+      - OAUTH_GOOGLE_CLIENT_ID=${OAUTH_GOOGLE_CLIENT_ID}
+      - OAUTH_GOOGLE_CLIENT_SECRET=${OAUTH_GOOGLE_CLIENT_SECRET}
+      - OAUTH_GOOGLE_AUTHORIZE_URL=${OAUTH_GOOGLE_AUTHORIZE_URL}
+      - OAUTH_GOOGLE_TOKEN_URL=${OAUTH_GOOGLE_TOKEN_URL}
+      - OAUTH_GOOGLE_USERINFO_URL=${OAUTH_GOOGLE_USERINFO_URL}
+      - OAUTH_GOOGLE_SCOPES=${OAUTH_GOOGLE_SCOPES}
+      - OAUTH_MICROSOFT_CLIENT_ID=${OAUTH_MICROSOFT_CLIENT_ID}
+      - OAUTH_MICROSOFT_CLIENT_SECRET=${OAUTH_MICROSOFT_CLIENT_SECRET}
+      - OAUTH_MICROSOFT_AUTHORIZE_URL=${OAUTH_MICROSOFT_AUTHORIZE_URL}
+      - OAUTH_MICROSOFT_TOKEN_URL=${OAUTH_MICROSOFT_TOKEN_URL}
+      - OAUTH_MICROSOFT_USERINFO_URL=${OAUTH_MICROSOFT_USERINFO_URL}
+      - OAUTH_MICROSOFT_SCOPES=${OAUTH_MICROSOFT_SCOPES}
+      - OAUTH_SAMSUNG_CLIENT_ID=${OAUTH_SAMSUNG_CLIENT_ID}
+      - OAUTH_SAMSUNG_CLIENT_SECRET=${OAUTH_SAMSUNG_CLIENT_SECRET}
+      - OAUTH_SAMSUNG_AUTHORIZE_URL=${OAUTH_SAMSUNG_AUTHORIZE_URL}
+      - OAUTH_SAMSUNG_TOKEN_URL=${OAUTH_SAMSUNG_TOKEN_URL}
+      - OAUTH_SAMSUNG_USERINFO_URL=${OAUTH_SAMSUNG_USERINFO_URL}
+      - OAUTH_SAMSUNG_SCOPES=${OAUTH_SAMSUNG_SCOPES}
+      - OAUTH_GITHUB_CLIENT_ID=${OAUTH_GITHUB_CLIENT_ID}
+      - OAUTH_GITHUB_CLIENT_SECRET=${OAUTH_GITHUB_CLIENT_SECRET}
+      - OAUTH_GITHUB_AUTHORIZE_URL=${OAUTH_GITHUB_AUTHORIZE_URL}
+      - OAUTH_GITHUB_TOKEN_URL=${OAUTH_GITHUB_TOKEN_URL}
+      - OAUTH_GITHUB_USERINFO_URL=${OAUTH_GITHUB_USERINFO_URL}
+      - OAUTH_GITHUB_SCOPES=${OAUTH_GITHUB_SCOPES}
+      - OAUTH_LINKEDIN_CLIENT_ID=${OAUTH_LINKEDIN_CLIENT_ID}
+      - OAUTH_LINKEDIN_CLIENT_SECRET=${OAUTH_LINKEDIN_CLIENT_SECRET}
+      - OAUTH_LINKEDIN_AUTHORIZE_URL=${OAUTH_LINKEDIN_AUTHORIZE_URL}
+      - OAUTH_LINKEDIN_TOKEN_URL=${OAUTH_LINKEDIN_TOKEN_URL}
+      - OAUTH_LINKEDIN_USERINFO_URL=${OAUTH_LINKEDIN_USERINFO_URL}
+      - OAUTH_LINKEDIN_SCOPES=${OAUTH_LINKEDIN_SCOPES}
+      - TWO_FACTOR_ISSUER=${TWO_FACTOR_ISSUER:-Health Intelligence}
+      - SENTRY_DSN=${SENTRY_DSN}
+      - S3_BUCKET=${S3_BUCKET}
+      - S3_REGION=${S3_REGION}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000', (r) => {if (r.statusCode !== 200) throw new Error(r.statusCode)})"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  postgres-data:
+    driver: local

@@ -40,6 +40,25 @@ docker compose up --build
 
 This starts Postgres + the app on `http://localhost:3000`.
 
+## Cloudflare Pages (SSR + Functions)
+
+Pages build settings:
+
+- Build command: `pnpm build`
+- Build output directory: `dist`
+
+Environment variables (set in Pages dashboard):
+
+- `APP_BASE_URL` (example: `https://csmsu.info`)
+- `DATABASE_URL` (Postgres connection string)
+- `OAUTH_SIMULATION_MODE=true` until OAuth is configured
+- `OAUTH_*` provider keys when enabling real OAuth
+
+Notes:
+
+- This app uses server routes under `src/routes/api/*`, so Pages Functions are required.
+- Postgres is required in production; the file-based DB fallback uses `fs` and is not supported in Workers.
+
 ## API Surface
 
 Implemented routes are under `src/routes/api/*` and match the MVP route list in the prompt (auth, metrics, snapshots, interventions, suggestions, applehealth, settings).

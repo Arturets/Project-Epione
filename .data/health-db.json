@@ -27,16 +27,73 @@
           "997235C9"
         ]
       }
+    },
+    {
+      "id": "c90fec31-4e61-4616-8f46-de951940f5c9",
+      "email": "test@test2.com",
+      "passwordHash": "pbkdf2$210000$0451eb0bcf5704efce637b877f29b900$c84618d52afb928eb4cbb24497849c4db776ab5ae771470986bfa494adf04e35a36807fb3df1c9abf1f27e1d641d121d89b050652d70f4d470e3c3343d485c27",
+      "oauthProviders": {},
+      "twoFactor": {
+        "enabled": false,
+        "secret": null,
+        "pendingSecret": null,
+        "enabledAt": null,
+        "recoveryCodes": []
+      },
+      "role": "customer",
+      "adminApiKey": null,
+      "createdAt": "2026-02-27T19:12:06.915Z",
+      "updatedAt": "2026-02-27T19:12:06.915Z",
+      "appleHealthConsent": false,
+      "lastAppleHealthSyncAt": null
+    },
+    {
+      "id": "5a907839-032d-48ee-993c-436292fbb7d6",
+      "email": "user@test.com",
+      "passwordHash": "pbkdf2$210000$ec01324dd7db4246f4f931e1e7f72a1c$db94f827187ca73824bc603e05c0b6c6ec3012a19096e0bfe76f3902576fb3c7eecbb45a7d6c1aa35fb203d0109c444384733b362fc39c32b642188cb1a649dc",
+      "oauthProviders": {},
+      "twoFactor": {
+        "enabled": false,
+        "secret": null,
+        "pendingSecret": null,
+        "enabledAt": null,
+        "recoveryCodes": []
+      },
+      "role": "customer",
+      "adminApiKey": null,
+      "createdAt": "2026-02-27T19:42:37.829Z",
+      "updatedAt": "2026-02-27T19:42:37.829Z",
+      "appleHealthConsent": false,
+      "lastAppleHealthSyncAt": null
+    },
+    {
+      "id": "5e3981ac-c360-4c95-9988-4b969aad392d",
+      "email": "test@zerg.com",
+      "passwordHash": "pbkdf2$210000$83136d3dde55d1dbdbd3f891b32964e5$04148815d35b4e4eb36d44d9ef4e97f3f3d118e6c532cfbb5f860195449073a6dddfd0cf8663697d3d9d45c6963ec3f7aa4134f8e5e05bbb03f6a86b35878a80",
+      "oauthProviders": {},
+      "twoFactor": {
+        "enabled": false,
+        "secret": null,
+        "pendingSecret": null,
+        "enabledAt": null,
+        "recoveryCodes": []
+      },
+      "role": "customer",
+      "adminApiKey": null,
+      "createdAt": "2026-03-04T19:08:47.755Z",
+      "updatedAt": "2026-03-04T19:08:47.755Z",
+      "appleHealthConsent": false,
+      "lastAppleHealthSyncAt": null
     }
   ],
   "sessions": [
     {
-      "id": "cd95b6a1-b309-4149-9d81-7b1397acc535",
-      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
-      "csrfToken": "d257ac47868c0228122ab2ea76d72a17ce7045b23062a380",
-      "createdAt": "2026-02-26T14:26:51.502Z",
-      "lastSeenAt": "2026-02-26T14:37:17.782Z",
-      "expiresAt": "2026-03-28T14:37:17.781Z"
+      "id": "5fcb02f5-86b0-4895-896c-aac3a27ba110",
+      "userId": "5e3981ac-c360-4c95-9988-4b969aad392d",
+      "csrfToken": "a03d917842917053de77632061fae3420628d9628fd35914",
+      "createdAt": "2026-03-04T19:15:33.457Z",
+      "lastSeenAt": "2026-03-10T16:06:50.450Z",
+      "expiresAt": "2026-04-09T16:06:50.449Z"
     }
   ],
   "authChallenges": [],
@@ -100,6 +157,222 @@
       "syncedFrom": "apple_health",
       "createdAt": "2026-02-25T18:23:28.250Z",
       "updatedAt": "2026-02-25T18:23:28.250Z"
+    },
+    {
+      "id": "881051d2-1a7d-4e21-b6e4-fa373c7c5920",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "metricName": "weight",
+      "value": 80.8,
+      "unit": "kg",
+      "note": "",
+      "recordedAt": "2026-02-26T18:16:09.671Z",
+      "syncedFrom": "manual",
+      "createdAt": "2026-02-26T18:16:09.671Z",
+      "updatedAt": "2026-02-26T18:16:09.671Z"
+    },
+    {
+      "id": "301c4391-6719-49d2-8260-654652363b0a",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "metricName": "body_fat",
+      "value": 20.9,
+      "unit": "%",
+      "note": "",
+      "recordedAt": "2026-02-26T18:16:09.681Z",
+      "syncedFrom": "manual",
+      "createdAt": "2026-02-26T18:16:09.681Z",
+      "updatedAt": "2026-02-26T18:16:09.681Z"
+    },
+    {
+      "id": "95f5f254-533e-48ca-a557-f0b9e7b67570",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "metricName": "rhr",
+      "value": 58,
+      "unit": "bpm",
+      "note": "",
+      "recordedAt": "2026-02-26T18:16:09.689Z",
+      "syncedFrom": "manual",
+      "createdAt": "2026-02-26T18:16:09.690Z",
+      "updatedAt": "2026-02-26T18:16:09.690Z"
+    },
+    {
+      "id": "c8689b85-9a7b-4cae-8c28-8b9051bde383",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "metricName": "hrv",
+      "value": 56,
+      "unit": "ms",
+      "note": "",
+      "recordedAt": "2026-02-26T18:16:09.697Z",
+      "syncedFrom": "manual",
+      "createdAt": "2026-02-26T18:16:09.697Z",
+      "updatedAt": "2026-02-26T18:16:09.697Z"
+    },
+    {
+      "id": "ac4f35bf-478c-41db-88c3-c5c3d24a91da",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "metricName": "sleep",
+      "value": 7.1,
+      "unit": "hours",
+      "note": "",
+      "recordedAt": "2026-02-26T18:16:09.705Z",
+      "syncedFrom": "manual",
+      "createdAt": "2026-02-26T18:16:09.705Z",
+      "updatedAt": "2026-02-26T18:16:09.705Z"
+    },
+    {
+      "id": "e855629c-0edd-4b04-b54f-17a90c5091ec",
+      "userId": "c90fec31-4e61-4616-8f46-de951940f5c9",
+      "metricName": "weight",
+      "value": 75,
+      "unit": "kg",
+      "note": "",
+      "recordedAt": "2026-02-27T19:12:37.786Z",
+      "syncedFrom": "manual",
+      "createdAt": "2026-02-27T19:12:37.786Z",
+      "updatedAt": "2026-02-27T19:12:37.786Z"
+    },
+    {
+      "id": "fc456c61-9037-4288-bb49-6639bec5fb55",
+      "userId": "c90fec31-4e61-4616-8f46-de951940f5c9",
+      "metricName": "body_fat",
+      "value": 24,
+      "unit": "%",
+      "note": "",
+      "recordedAt": "2026-02-27T19:12:37.800Z",
+      "syncedFrom": "manual",
+      "createdAt": "2026-02-27T19:12:37.801Z",
+      "updatedAt": "2026-02-27T19:12:37.801Z"
+    },
+    {
+      "id": "eeb0ce8d-71ad-40a9-b392-9183004884ba",
+      "userId": "c90fec31-4e61-4616-8f46-de951940f5c9",
+      "metricName": "vo2_max",
+      "value": 50,
+      "unit": "ml/kg/min",
+      "note": "",
+      "recordedAt": "2026-02-27T19:12:37.811Z",
+      "syncedFrom": "manual",
+      "createdAt": "2026-02-27T19:12:37.811Z",
+      "updatedAt": "2026-02-27T19:12:37.811Z"
+    },
+    {
+      "id": "e5782f65-0632-436d-8e17-564eb71dc159",
+      "userId": "c90fec31-4e61-4616-8f46-de951940f5c9",
+      "metricName": "rhr",
+      "value": 60,
+      "unit": "bpm",
+      "note": "",
+      "recordedAt": "2026-02-27T19:12:37.820Z",
+      "syncedFrom": "manual",
+      "createdAt": "2026-02-27T19:12:37.821Z",
+      "updatedAt": "2026-02-27T19:12:37.821Z"
+    },
+    {
+      "id": "b198a581-27f7-462e-b0f1-06366cfc2a99",
+      "userId": "c90fec31-4e61-4616-8f46-de951940f5c9",
+      "metricName": "hrv",
+      "value": 700,
+      "unit": "ms",
+      "note": "",
+      "recordedAt": "2026-02-27T19:12:37.829Z",
+      "syncedFrom": "manual",
+      "createdAt": "2026-02-27T19:12:37.829Z",
+      "updatedAt": "2026-02-27T19:12:37.829Z"
+    },
+    {
+      "id": "52505e5c-6b23-480a-a4cb-b16ddf04b1fe",
+      "userId": "c90fec31-4e61-4616-8f46-de951940f5c9",
+      "metricName": "sleep",
+      "value": 5,
+      "unit": "hours",
+      "note": "",
+      "recordedAt": "2026-02-27T19:12:37.837Z",
+      "syncedFrom": "manual",
+      "createdAt": "2026-02-27T19:12:37.837Z",
+      "updatedAt": "2026-02-27T19:12:37.837Z"
+    },
+    {
+      "id": "b4b61f7c-0ec9-4926-ac6a-e0f9028df79f",
+      "userId": "c90fec31-4e61-4616-8f46-de951940f5c9",
+      "metricName": "stress",
+      "value": 5,
+      "unit": "1-10",
+      "note": "",
+      "recordedAt": "2026-02-27T19:12:37.845Z",
+      "syncedFrom": "manual",
+      "createdAt": "2026-02-27T19:12:37.845Z",
+      "updatedAt": "2026-02-27T19:12:37.845Z"
+    },
+    {
+      "id": "1a3aa7ce-dcdf-4511-9c6b-6192388b1c25",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "metricName": "weight",
+      "value": 75,
+      "unit": "kg",
+      "note": "",
+      "recordedAt": "2026-02-27T19:44:11.910Z",
+      "syncedFrom": "manual",
+      "createdAt": "2026-02-27T19:44:11.911Z",
+      "updatedAt": "2026-02-27T19:44:11.911Z"
+    },
+    {
+      "id": "faacbe88-de71-4448-8f4f-22bd985b4fdb",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "metricName": "body_fat",
+      "value": 17,
+      "unit": "%",
+      "note": "",
+      "recordedAt": "2026-02-27T19:44:11.925Z",
+      "syncedFrom": "manual",
+      "createdAt": "2026-02-27T19:44:11.926Z",
+      "updatedAt": "2026-02-27T19:44:11.926Z"
+    },
+    {
+      "id": "beb5b65a-cffc-4fe9-8f05-e5963837f26d",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "metricName": "vo2_max",
+      "value": 45,
+      "unit": "ml/kg/min",
+      "note": "",
+      "recordedAt": "2026-02-27T19:44:11.938Z",
+      "syncedFrom": "manual",
+      "createdAt": "2026-02-27T19:44:11.938Z",
+      "updatedAt": "2026-02-27T19:44:11.938Z"
+    },
+    {
+      "id": "66e5e5c1-3a33-4513-aea0-9cdc6eae6ca6",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "metricName": "rhr",
+      "value": 58,
+      "unit": "bpm",
+      "note": "",
+      "recordedAt": "2026-02-27T19:44:11.947Z",
+      "syncedFrom": "manual",
+      "createdAt": "2026-02-27T19:44:11.947Z",
+      "updatedAt": "2026-02-27T19:44:11.947Z"
+    },
+    {
+      "id": "0b44d20d-b975-4785-8a3a-8c3a4c4613d8",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "metricName": "hrv",
+      "value": 750,
+      "unit": "ms",
+      "note": "",
+      "recordedAt": "2026-02-27T19:44:11.957Z",
+      "syncedFrom": "manual",
+      "createdAt": "2026-02-27T19:44:11.958Z",
+      "updatedAt": "2026-02-27T19:44:11.958Z"
+    },
+    {
+      "id": "4514f557-5ab6-40df-9e65-9c1d4f898701",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "metricName": "sleep",
+      "value": 8,
+      "unit": "hours",
+      "note": "",
+      "recordedAt": "2026-02-27T19:44:11.969Z",
+      "syncedFrom": "manual",
+      "createdAt": "2026-02-27T19:44:11.969Z",
+      "updatedAt": "2026-02-27T19:44:11.969Z"
     }
   ],
   "userPreferences": [
@@ -110,6 +383,30 @@
       "distanceUnit": "km",
       "createdAt": "2026-02-25T15:53:13.257Z",
       "updatedAt": "2026-02-25T15:53:13.257Z"
+    },
+    {
+      "id": "7185486b-76d2-4aff-b97e-e433b2a75906",
+      "userId": "c90fec31-4e61-4616-8f46-de951940f5c9",
+      "weightUnit": "kg",
+      "distanceUnit": "km",
+      "createdAt": "2026-02-27T19:12:06.969Z",
+      "updatedAt": "2026-02-27T19:12:06.969Z"
+    },
+    {
+      "id": "13b4d17b-9dda-45cb-8254-f71d1db0a798",
+      "userId": "5a907839-032d-48ee-993c-436292fbb7d6",
+      "weightUnit": "kg",
+      "distanceUnit": "km",
+      "createdAt": "2026-02-27T19:42:37.890Z",
+      "updatedAt": "2026-02-27T19:42:37.890Z"
+    },
+    {
+      "id": "5089c74f-62a4-4b58-954d-a889df7c6e8a",
+      "userId": "5e3981ac-c360-4c95-9988-4b969aad392d",
+      "weightUnit": "kg",
+      "distanceUnit": "km",
+      "createdAt": "2026-03-04T19:08:47.805Z",
+      "updatedAt": "2026-03-04T19:08:47.805Z"
     }
   ],
   "snapshots": [],
@@ -215,6 +512,453 @@
         "status": "two_factor_passed"
       },
       "createdAt": "2026-02-26T14:26:51.503Z"
+    },
+    {
+      "id": "ea149468-25cc-467a-bf09-696fbf19b542",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "logout",
+      "metadata": {},
+      "createdAt": "2026-02-26T18:15:36.403Z"
+    },
+    {
+      "id": "d4e7daa2-e655-44ad-964f-8a8b7a9f4ff9",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "login",
+      "metadata": {
+        "method": "password",
+        "status": "two_factor_required"
+      },
+      "createdAt": "2026-02-26T18:15:58.131Z"
+    },
+    {
+      "id": "24f65529-8279-4885-bfdd-0179833cdb0c",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "two_factor_verified",
+      "metadata": {
+        "method": "password",
+        "provider": null,
+        "usedRecoveryCode": false
+      },
+      "createdAt": "2026-02-26T18:16:04.328Z"
+    },
+    {
+      "id": "ddb2aa45-8e54-4886-aa3a-f893b7c3f55b",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "login",
+      "metadata": {
+        "method": "password",
+        "status": "two_factor_passed"
+      },
+      "createdAt": "2026-02-26T18:16:04.329Z"
+    },
+    {
+      "id": "e8ac1833-81cf-45c4-b938-5d35304e1349",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "metric_logged",
+      "metadata": {
+        "metricName": "weight",
+        "value": 80.8,
+        "syncedFrom": "manual"
+      },
+      "createdAt": "2026-02-26T18:16:09.672Z"
+    },
+    {
+      "id": "d30683a7-0dc7-486c-9ba7-14e0d1f0a74f",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "metric_logged",
+      "metadata": {
+        "metricName": "body_fat",
+        "value": 20.9,
+        "syncedFrom": "manual"
+      },
+      "createdAt": "2026-02-26T18:16:09.682Z"
+    },
+    {
+      "id": "12eebbcc-23b6-46cb-ac70-e8703d46c553",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "metric_logged",
+      "metadata": {
+        "metricName": "rhr",
+        "value": 58,
+        "syncedFrom": "manual"
+      },
+      "createdAt": "2026-02-26T18:16:09.690Z"
+    },
+    {
+      "id": "dcb85b55-3759-49c1-abd3-7244395c401c",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "metric_logged",
+      "metadata": {
+        "metricName": "hrv",
+        "value": 56,
+        "syncedFrom": "manual"
+      },
+      "createdAt": "2026-02-26T18:16:09.698Z"
+    },
+    {
+      "id": "44a590aa-3c8c-4a2c-9b20-79461d5f1391",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "metric_logged",
+      "metadata": {
+        "metricName": "sleep",
+        "value": 7.1,
+        "syncedFrom": "manual"
+      },
+      "createdAt": "2026-02-26T18:16:09.705Z"
+    },
+    {
+      "id": "08e5c59a-12fa-47a3-9d92-de075190ce83",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "logout",
+      "metadata": {},
+      "createdAt": "2026-02-27T19:10:58.109Z"
+    },
+    {
+      "id": "5f7f3188-db0d-45b3-9e69-48cce9f52a7d",
+      "userId": "c90fec31-4e61-4616-8f46-de951940f5c9",
+      "eventType": "signup",
+      "metadata": {
+        "method": "password"
+      },
+      "createdAt": "2026-02-27T19:12:06.970Z"
+    },
+    {
+      "id": "ef0f0b95-8ab9-4bcd-b79d-b52d4b641906",
+      "userId": "c90fec31-4e61-4616-8f46-de951940f5c9",
+      "eventType": "metric_logged",
+      "metadata": {
+        "metricName": "weight",
+        "value": 75,
+        "syncedFrom": "manual"
+      },
+      "createdAt": "2026-02-27T19:12:37.788Z"
+    },
+    {
+      "id": "7a97a491-1101-4c63-8b09-b655fad595cb",
+      "userId": "c90fec31-4e61-4616-8f46-de951940f5c9",
+      "eventType": "metric_logged",
+      "metadata": {
+        "metricName": "body_fat",
+        "value": 24,
+        "syncedFrom": "manual"
+      },
+      "createdAt": "2026-02-27T19:12:37.801Z"
+    },
+    {
+      "id": "4c770b76-55b8-48c2-8289-81be43745e62",
+      "userId": "c90fec31-4e61-4616-8f46-de951940f5c9",
+      "eventType": "metric_logged",
+      "metadata": {
+        "metricName": "vo2_max",
+        "value": 50,
+        "syncedFrom": "manual"
+      },
+      "createdAt": "2026-02-27T19:12:37.812Z"
+    },
+    {
+      "id": "c0fc7961-181c-4ade-9481-567ac64ae3ee",
+      "userId": "c90fec31-4e61-4616-8f46-de951940f5c9",
+      "eventType": "metric_logged",
+      "metadata": {
+        "metricName": "rhr",
+        "value": 60,
+        "syncedFrom": "manual"
+      },
+      "createdAt": "2026-02-27T19:12:37.821Z"
+    },
+    {
+      "id": "55bbd7d9-bd7d-44f6-9d66-c99c7938dafc",
+      "userId": "c90fec31-4e61-4616-8f46-de951940f5c9",
+      "eventType": "metric_logged",
+      "metadata": {
+        "metricName": "hrv",
+        "value": 700,
+        "syncedFrom": "manual"
+      },
+      "createdAt": "2026-02-27T19:12:37.830Z"
+    },
+    {
+      "id": "9328f440-421c-42ae-808e-0166a6532c6d",
+      "userId": "c90fec31-4e61-4616-8f46-de951940f5c9",
+      "eventType": "metric_logged",
+      "metadata": {
+        "metricName": "sleep",
+        "value": 5,
+        "syncedFrom": "manual"
+      },
+      "createdAt": "2026-02-27T19:12:37.837Z"
+    },
+    {
+      "id": "59833b14-c504-4534-8b4c-d844f4a97e5a",
+      "userId": "c90fec31-4e61-4616-8f46-de951940f5c9",
+      "eventType": "metric_logged",
+      "metadata": {
+        "metricName": "stress",
+        "value": 5,
+        "syncedFrom": "manual"
+      },
+      "createdAt": "2026-02-27T19:12:37.845Z"
+    },
+    {
+      "id": "2d2d2c05-296c-4c45-839e-32dccac5de97",
+      "userId": "c90fec31-4e61-4616-8f46-de951940f5c9",
+      "eventType": "logout",
+      "metadata": {},
+      "createdAt": "2026-02-27T19:22:42.671Z"
+    },
+    {
+      "id": "08a0d08e-0633-4669-965f-65e6081d7f1e",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "login",
+      "metadata": {
+        "method": "password",
+        "status": "two_factor_required"
+      },
+      "createdAt": "2026-02-27T19:23:17.474Z"
+    },
+    {
+      "id": "5ffb6ed1-cb2e-4953-b381-bb2abfafbf65",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "two_factor_verified",
+      "metadata": {
+        "method": "password",
+        "provider": null,
+        "usedRecoveryCode": false
+      },
+      "createdAt": "2026-02-27T19:23:34.247Z"
+    },
+    {
+      "id": "e6d06307-9412-4128-91ae-bcbeac37f58d",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "login",
+      "metadata": {
+        "method": "password",
+        "status": "two_factor_passed"
+      },
+      "createdAt": "2026-02-27T19:23:34.247Z"
+    },
+    {
+      "id": "320ec82b-bcad-4870-8e39-0c53f703f24e",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "logout",
+      "metadata": {},
+      "createdAt": "2026-02-27T19:41:13.886Z"
+    },
+    {
+      "id": "1019182f-8ab5-4df4-9f07-afbd4bfff876",
+      "userId": "5a907839-032d-48ee-993c-436292fbb7d6",
+      "eventType": "signup",
+      "metadata": {
+        "method": "password"
+      },
+      "createdAt": "2026-02-27T19:42:37.893Z"
+    },
+    {
+      "id": "caf2f2d4-25a7-4880-b63d-6f626f606565",
+      "userId": "5a907839-032d-48ee-993c-436292fbb7d6",
+      "eventType": "logout",
+      "metadata": {},
+      "createdAt": "2026-02-27T19:42:46.460Z"
+    },
+    {
+      "id": "8c50bfc7-48ae-41a6-abaa-ea72b50dfaf7",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "login",
+      "metadata": {
+        "method": "password",
+        "status": "two_factor_required"
+      },
+      "createdAt": "2026-02-27T19:43:03.524Z"
+    },
+    {
+      "id": "5f3c2579-d239-4226-8013-41fef5ed11db",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "two_factor_verified",
+      "metadata": {
+        "method": "password",
+        "provider": null,
+        "usedRecoveryCode": false
+      },
+      "createdAt": "2026-02-27T19:43:10.035Z"
+    },
+    {
+      "id": "c7a58d11-f87c-4315-89d3-f6bac31d3007",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "login",
+      "metadata": {
+        "method": "password",
+        "status": "two_factor_passed"
+      },
+      "createdAt": "2026-02-27T19:43:10.036Z"
+    },
+    {
+      "id": "febe74b4-e3b3-4fbc-b8e1-d04c2d03e8e7",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "metric_logged",
+      "metadata": {
+        "metricName": "weight",
+        "value": 75,
+        "syncedFrom": "manual"
+      },
+      "createdAt": "2026-02-27T19:44:11.912Z"
+    },
+    {
+      "id": "bcd4d7b6-186c-4bc0-804f-c5c088994b58",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "metric_logged",
+      "metadata": {
+        "metricName": "body_fat",
+        "value": 17,
+        "syncedFrom": "manual"
+      },
+      "createdAt": "2026-02-27T19:44:11.926Z"
+    },
+    {
+      "id": "f60a61f7-0fce-4519-b1b7-230bd505f161",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "metric_logged",
+      "metadata": {
+        "metricName": "vo2_max",
+        "value": 45,
+        "syncedFrom": "manual"
+      },
+      "createdAt": "2026-02-27T19:44:11.938Z"
+    },
+    {
+      "id": "5a2431ae-4e5a-4f7c-b76b-44fd70c31a3d",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "metric_logged",
+      "metadata": {
+        "metricName": "rhr",
+        "value": 58,
+        "syncedFrom": "manual"
+      },
+      "createdAt": "2026-02-27T19:44:11.948Z"
+    },
+    {
+      "id": "03d68625-e955-4d5b-a022-5cc8d5dfc9f4",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "metric_logged",
+      "metadata": {
+        "metricName": "hrv",
+        "value": 750,
+        "syncedFrom": "manual"
+      },
+      "createdAt": "2026-02-27T19:44:11.958Z"
+    },
+    {
+      "id": "4d6e9ff5-5a69-42df-b083-473924456be3",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "metric_logged",
+      "metadata": {
+        "metricName": "sleep",
+        "value": 8,
+        "syncedFrom": "manual"
+      },
+      "createdAt": "2026-02-27T19:44:11.970Z"
+    },
+    {
+      "id": "dd56eef5-648e-4231-9e8d-2a03b6fa79e6",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "login",
+      "metadata": {
+        "method": "password",
+        "status": "two_factor_required"
+      },
+      "createdAt": "2026-03-01T16:37:11.462Z"
+    },
+    {
+      "id": "b39f4cd4-14b7-4261-974c-95321b242128",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "two_factor_verified",
+      "metadata": {
+        "method": "password",
+        "provider": null,
+        "usedRecoveryCode": false
+      },
+      "createdAt": "2026-03-01T16:37:14.526Z"
+    },
+    {
+      "id": "c9ae911d-1847-4899-97cc-6a3f83bbbc0b",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "login",
+      "metadata": {
+        "method": "password",
+        "status": "two_factor_passed"
+      },
+      "createdAt": "2026-03-01T16:37:14.527Z"
+    },
+    {
+      "id": "19d34cc7-e689-4001-82d1-9dc47266ded1",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "logout",
+      "metadata": {},
+      "createdAt": "2026-03-04T19:05:31.834Z"
+    },
+    {
+      "id": "826afdf4-4f1f-42b4-a86b-226a7f41fae3",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "login",
+      "metadata": {
+        "method": "password",
+        "status": "two_factor_required"
+      },
+      "createdAt": "2026-03-04T19:06:30.377Z"
+    },
+    {
+      "id": "2224f8d3-d464-4de0-9661-cad9b7d730cc",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "two_factor_verified",
+      "metadata": {
+        "method": "password",
+        "provider": null,
+        "usedRecoveryCode": false
+      },
+      "createdAt": "2026-03-04T19:06:35.842Z"
+    },
+    {
+      "id": "4ec6e2cd-cc2f-47ce-b0a6-b84dfc57dcb9",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "login",
+      "metadata": {
+        "method": "password",
+        "status": "two_factor_passed"
+      },
+      "createdAt": "2026-03-04T19:06:35.842Z"
+    },
+    {
+      "id": "d9484dfd-d385-4e1b-a8b6-f096397898d9",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "logout",
+      "metadata": {},
+      "createdAt": "2026-03-04T19:08:05.962Z"
+    },
+    {
+      "id": "5b7db803-4c6b-433c-8f98-37a618425edb",
+      "userId": "5e3981ac-c360-4c95-9988-4b969aad392d",
+      "eventType": "signup",
+      "metadata": {
+        "method": "password"
+      },
+      "createdAt": "2026-03-04T19:08:47.807Z"
+    },
+    {
+      "id": "63e6d30e-766d-4a5b-b759-94c34faa05f2",
+      "userId": "5e3981ac-c360-4c95-9988-4b969aad392d",
+      "eventType": "login",
+      "metadata": {
+        "method": "password"
+      },
+      "createdAt": "2026-03-04T19:09:16.969Z"
+    },
+    {
+      "id": "620f1461-e9d4-4c4e-ade1-a56d51eb5d05",
+      "userId": "5e3981ac-c360-4c95-9988-4b969aad392d",
+      "eventType": "login",
+      "metadata": {
+        "method": "password"
+      },
+      "createdAt": "2026-03-04T19:15:33.458Z"
     }
   ],
   "events": [
@@ -417,6 +1161,1076 @@
         "referrer": "http://localhost:5173/dashboard/"
       },
       "createdAt": "2026-02-26T14:26:55.217Z"
+    },
+    {
+      "id": "d47fad2d-227e-451d-aa3f-00f3f570dfd6",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "metric_logged",
+      "metadata": {
+        "metricName": "weight",
+        "value": 80.8,
+        "unit": "kg",
+        "syncedFrom": "manual"
+      },
+      "createdAt": "2026-02-26T18:16:09.673Z"
+    },
+    {
+      "id": "3c0d5464-a354-4614-8c48-a7accd99711d",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "metric_logged",
+      "metadata": {
+        "metricName": "body_fat",
+        "value": 20.9,
+        "unit": "%",
+        "syncedFrom": "manual"
+      },
+      "createdAt": "2026-02-26T18:16:09.682Z"
+    },
+    {
+      "id": "07b857f0-a554-4c23-bd8c-b105aa25e498",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "metric_logged",
+      "metadata": {
+        "metricName": "rhr",
+        "value": 58,
+        "unit": "bpm",
+        "syncedFrom": "manual"
+      },
+      "createdAt": "2026-02-26T18:16:09.691Z"
+    },
+    {
+      "id": "10a79167-0e8e-49a4-95e7-53711e4ad099",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "metric_logged",
+      "metadata": {
+        "metricName": "hrv",
+        "value": 56,
+        "unit": "ms",
+        "syncedFrom": "manual"
+      },
+      "createdAt": "2026-02-26T18:16:09.698Z"
+    },
+    {
+      "id": "dba79c0d-cd52-4029-9004-119af8137520",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "metric_logged",
+      "metadata": {
+        "metricName": "sleep",
+        "value": 7.1,
+        "unit": "hours",
+        "syncedFrom": "manual"
+      },
+      "createdAt": "2026-02-26T18:16:09.706Z"
+    },
+    {
+      "id": "ff23a9f1-5bb2-4c19-a18b-9159db41a1bd",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "intervention_selected",
+      "metadata": {
+        "interventionId": "weight_training_5x5",
+        "selectedInterventions": [
+          "weight_training_5x5"
+        ],
+        "durationWeeks": 8
+      },
+      "createdAt": "2026-02-26T18:16:45.962Z"
+    },
+    {
+      "id": "7565d8f8-4624-4046-bb5b-0199bd36b721",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "page_visited",
+      "metadata": {
+        "route": "/developer/console/",
+        "referrer": "http://localhost:5173/anatomy/"
+      },
+      "createdAt": "2026-02-26T18:17:05.643Z"
+    },
+    {
+      "id": "65546137-3c07-4809-a25a-b93acac1549f",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "page_visited",
+      "metadata": {
+        "route": "/anatomy/",
+        "referrer": "http://localhost:5173/anatomy/"
+      },
+      "createdAt": "2026-02-26T18:18:08.715Z"
+    },
+    {
+      "id": "cd76f88e-efe6-4d36-b5b7-c49ba95f5f34",
+      "userId": "c90fec31-4e61-4616-8f46-de951940f5c9",
+      "eventType": "metric_logged",
+      "metadata": {
+        "metricName": "weight",
+        "value": 75,
+        "unit": "kg",
+        "syncedFrom": "manual"
+      },
+      "createdAt": "2026-02-27T19:12:37.789Z"
+    },
+    {
+      "id": "8f3a5c8c-69c5-4720-8cb6-1344f2642fb2",
+      "userId": "c90fec31-4e61-4616-8f46-de951940f5c9",
+      "eventType": "metric_logged",
+      "metadata": {
+        "metricName": "body_fat",
+        "value": 24,
+        "unit": "%",
+        "syncedFrom": "manual"
+      },
+      "createdAt": "2026-02-27T19:12:37.802Z"
+    },
+    {
+      "id": "1173af7b-547b-4ea7-94c1-4b5f7ee058da",
+      "userId": "c90fec31-4e61-4616-8f46-de951940f5c9",
+      "eventType": "metric_logged",
+      "metadata": {
+        "metricName": "vo2_max",
+        "value": 50,
+        "unit": "ml/kg/min",
+        "syncedFrom": "manual"
+      },
+      "createdAt": "2026-02-27T19:12:37.812Z"
+    },
+    {
+      "id": "14514419-c296-473d-85c3-e2e66d7d594b",
+      "userId": "c90fec31-4e61-4616-8f46-de951940f5c9",
+      "eventType": "metric_logged",
+      "metadata": {
+        "metricName": "rhr",
+        "value": 60,
+        "unit": "bpm",
+        "syncedFrom": "manual"
+      },
+      "createdAt": "2026-02-27T19:12:37.821Z"
+    },
+    {
+      "id": "ef495280-79b7-4ab6-9fba-ac35cb887eaf",
+      "userId": "c90fec31-4e61-4616-8f46-de951940f5c9",
+      "eventType": "metric_logged",
+      "metadata": {
+        "metricName": "hrv",
+        "value": 700,
+        "unit": "ms",
+        "syncedFrom": "manual"
+      },
+      "createdAt": "2026-02-27T19:12:37.830Z"
+    },
+    {
+      "id": "39ccda78-525b-4fd7-9acf-c25501064152",
+      "userId": "c90fec31-4e61-4616-8f46-de951940f5c9",
+      "eventType": "metric_logged",
+      "metadata": {
+        "metricName": "sleep",
+        "value": 5,
+        "unit": "hours",
+        "syncedFrom": "manual"
+      },
+      "createdAt": "2026-02-27T19:12:37.838Z"
+    },
+    {
+      "id": "165a094b-f9e9-4fd3-98be-ac4bf71a9b3c",
+      "userId": "c90fec31-4e61-4616-8f46-de951940f5c9",
+      "eventType": "metric_logged",
+      "metadata": {
+        "metricName": "stress",
+        "value": 5,
+        "unit": "1-10",
+        "syncedFrom": "manual"
+      },
+      "createdAt": "2026-02-27T19:12:37.846Z"
+    },
+    {
+      "id": "27681fe0-5d56-49f5-a7b8-dd4438390519",
+      "userId": "c90fec31-4e61-4616-8f46-de951940f5c9",
+      "eventType": "page_visited",
+      "metadata": {
+        "route": "/developer/console/",
+        "referrer": "http://localhost:5173/graph/"
+      },
+      "createdAt": "2026-02-27T19:14:31.528Z"
+    },
+    {
+      "id": "7d325d51-2ef4-4b28-8682-de2ce39c58c9",
+      "userId": "c90fec31-4e61-4616-8f46-de951940f5c9",
+      "eventType": "page_visited",
+      "metadata": {
+        "route": "/dashboard/",
+        "referrer": "http://localhost:5173/graph/"
+      },
+      "createdAt": "2026-02-27T19:14:36.765Z"
+    },
+    {
+      "id": "92d97ce4-099f-48d6-b83d-038d9848817e",
+      "userId": "c90fec31-4e61-4616-8f46-de951940f5c9",
+      "eventType": "intervention_selected",
+      "metadata": {
+        "interventionId": "weight_training_5x5",
+        "selectedInterventions": [
+          "weight_training_5x5"
+        ],
+        "durationWeeks": 8
+      },
+      "createdAt": "2026-02-27T19:14:38.857Z"
+    },
+    {
+      "id": "eea1ecd3-f40b-40b5-a668-b5c9bf5a246d",
+      "userId": "c90fec31-4e61-4616-8f46-de951940f5c9",
+      "eventType": "intervention_selected",
+      "metadata": {
+        "interventionId": "weight_training_5x5",
+        "selectedInterventions": [
+          "weight_training_5x5",
+          "cardio_moderate_3x"
+        ],
+        "durationWeeks": 8
+      },
+      "createdAt": "2026-02-27T19:14:45.756Z"
+    },
+    {
+      "id": "bbb2dcbe-9b38-4bac-95fb-c4942dd2c232",
+      "userId": "c90fec31-4e61-4616-8f46-de951940f5c9",
+      "eventType": "intervention_stacked",
+      "metadata": {
+        "interventions": [
+          "weight_training_5x5",
+          "cardio_moderate_3x"
+        ]
+      },
+      "createdAt": "2026-02-27T19:14:45.757Z"
+    },
+    {
+      "id": "4dc26f48-8010-4160-8238-8f3d6dac33d5",
+      "userId": "c90fec31-4e61-4616-8f46-de951940f5c9",
+      "eventType": "intervention_selected",
+      "metadata": {
+        "interventionId": "weight_training_5x5",
+        "selectedInterventions": [
+          "weight_training_5x5"
+        ],
+        "durationWeeks": 8
+      },
+      "createdAt": "2026-02-27T19:15:12.072Z"
+    },
+    {
+      "id": "0b4f29d7-dde6-401b-ab81-7edccab4cbb9",
+      "userId": "c90fec31-4e61-4616-8f46-de951940f5c9",
+      "eventType": "intervention_selected",
+      "metadata": {
+        "interventionId": "cardio_moderate_3x",
+        "selectedInterventions": [
+          "cardio_moderate_3x"
+        ],
+        "durationWeeks": 8
+      },
+      "createdAt": "2026-02-27T19:15:13.145Z"
+    },
+    {
+      "id": "ceb52dfc-ebdc-4ba4-a008-a57aafdc475a",
+      "userId": "c90fec31-4e61-4616-8f46-de951940f5c9",
+      "eventType": "intervention_selected",
+      "metadata": {
+        "interventionId": "weight_training_5x5",
+        "selectedInterventions": [
+          "weight_training_5x5"
+        ],
+        "durationWeeks": 8
+      },
+      "createdAt": "2026-02-27T19:15:13.987Z"
+    },
+    {
+      "id": "39e2270e-a72f-4805-bf98-3fd36b0942fe",
+      "userId": "c90fec31-4e61-4616-8f46-de951940f5c9",
+      "eventType": "intervention_selected",
+      "metadata": {
+        "interventionId": "cardio_moderate_3x",
+        "selectedInterventions": [
+          "cardio_moderate_3x"
+        ],
+        "durationWeeks": 8
+      },
+      "createdAt": "2026-02-27T19:15:14.462Z"
+    },
+    {
+      "id": "7e8969c2-d289-4f69-a605-1b8d3c6d4886",
+      "userId": "c90fec31-4e61-4616-8f46-de951940f5c9",
+      "eventType": "intervention_selected",
+      "metadata": {
+        "interventionId": "diet_500_deficit",
+        "selectedInterventions": [
+          "diet_500_deficit"
+        ],
+        "durationWeeks": 8
+      },
+      "createdAt": "2026-02-27T19:15:14.947Z"
+    },
+    {
+      "id": "166da0c1-d45b-406c-b6c4-712249d5e976",
+      "userId": "c90fec31-4e61-4616-8f46-de951940f5c9",
+      "eventType": "intervention_selected",
+      "metadata": {
+        "interventionId": "screen_time_reduction",
+        "selectedInterventions": [
+          "screen_time_reduction"
+        ],
+        "durationWeeks": 4
+      },
+      "createdAt": "2026-02-27T19:15:15.397Z"
+    },
+    {
+      "id": "5385d433-7db2-4a8b-a4d0-08da105abfae",
+      "userId": "c90fec31-4e61-4616-8f46-de951940f5c9",
+      "eventType": "intervention_selected",
+      "metadata": {
+        "interventionId": "diet_500_deficit",
+        "selectedInterventions": [
+          "diet_500_deficit"
+        ],
+        "durationWeeks": 8
+      },
+      "createdAt": "2026-02-27T19:15:15.739Z"
+    },
+    {
+      "id": "c13c094d-98e3-498c-81ce-3354e31ad7f7",
+      "userId": "c90fec31-4e61-4616-8f46-de951940f5c9",
+      "eventType": "intervention_selected",
+      "metadata": {
+        "interventionId": "weight_training_5x5",
+        "selectedInterventions": [
+          "weight_training_5x5"
+        ],
+        "durationWeeks": 8
+      },
+      "createdAt": "2026-02-27T19:15:15.985Z"
+    },
+    {
+      "id": "248358d4-6ebd-42c5-8326-b066a682c217",
+      "userId": "c90fec31-4e61-4616-8f46-de951940f5c9",
+      "eventType": "intervention_selected",
+      "metadata": {
+        "interventionId": "cardio_moderate_3x",
+        "selectedInterventions": [
+          "cardio_moderate_3x"
+        ],
+        "durationWeeks": 8
+      },
+      "createdAt": "2026-02-27T19:15:17.291Z"
+    },
+    {
+      "id": "dc608cd5-10b1-4f04-8481-de007995bf15",
+      "userId": "c90fec31-4e61-4616-8f46-de951940f5c9",
+      "eventType": "intervention_selected",
+      "metadata": {
+        "interventionId": "weight_training_5x5",
+        "selectedInterventions": [
+          "weight_training_5x5"
+        ],
+        "durationWeeks": 8
+      },
+      "createdAt": "2026-02-27T19:15:17.749Z"
+    },
+    {
+      "id": "70fe66cd-fc74-4500-a6a7-e9cebe051a2d",
+      "userId": "c90fec31-4e61-4616-8f46-de951940f5c9",
+      "eventType": "intervention_selected",
+      "metadata": {
+        "interventionId": "weight_training_5x5",
+        "selectedInterventions": [
+          "weight_training_5x5"
+        ],
+        "durationWeeks": 8
+      },
+      "createdAt": "2026-02-27T19:15:20.674Z"
+    },
+    {
+      "id": "ed22475a-297d-49bc-b6be-2e4c2e3d273c",
+      "userId": "c90fec31-4e61-4616-8f46-de951940f5c9",
+      "eventType": "intervention_selected",
+      "metadata": {
+        "interventionId": "weight_training_5x5",
+        "selectedInterventions": [
+          "weight_training_5x5",
+          "cardio_moderate_3x"
+        ],
+        "durationWeeks": 8
+      },
+      "createdAt": "2026-02-27T19:15:50.974Z"
+    },
+    {
+      "id": "1d71435c-4aa4-4e73-8448-646d63816e46",
+      "userId": "c90fec31-4e61-4616-8f46-de951940f5c9",
+      "eventType": "intervention_stacked",
+      "metadata": {
+        "interventions": [
+          "weight_training_5x5",
+          "cardio_moderate_3x"
+        ]
+      },
+      "createdAt": "2026-02-27T19:15:50.975Z"
+    },
+    {
+      "id": "21060708-b36e-46fa-9f56-433ade5502d6",
+      "userId": "c90fec31-4e61-4616-8f46-de951940f5c9",
+      "eventType": "page_visited",
+      "metadata": {
+        "route": "/coach/dashboard/",
+        "referrer": "http://localhost:5173/interventions/"
+      },
+      "createdAt": "2026-02-27T19:16:48.793Z"
+    },
+    {
+      "id": "38646ebb-1733-47e3-8ce1-8e319e44f7c5",
+      "userId": "c90fec31-4e61-4616-8f46-de951940f5c9",
+      "eventType": "page_visited",
+      "metadata": {
+        "route": "/coach/clients/",
+        "referrer": "http://localhost:5173/coach/dashboard/"
+      },
+      "createdAt": "2026-02-27T19:17:13.538Z"
+    },
+    {
+      "id": "006261a2-3a49-493a-8c80-d7e22fe81476",
+      "userId": "c90fec31-4e61-4616-8f46-de951940f5c9",
+      "eventType": "page_visited",
+      "metadata": {
+        "route": "/coach/clients/maya-r/",
+        "referrer": "http://localhost:5173/coach/dashboard/"
+      },
+      "createdAt": "2026-02-27T19:17:15.082Z"
+    },
+    {
+      "id": "d81794fb-4bc9-4475-a480-addf77c98e37",
+      "userId": "c90fec31-4e61-4616-8f46-de951940f5c9",
+      "eventType": "page_visited",
+      "metadata": {
+        "route": "/coach/clients/",
+        "referrer": "http://localhost:5173/coach/dashboard/"
+      },
+      "createdAt": "2026-02-27T19:17:24.275Z"
+    },
+    {
+      "id": "f466e883-b174-4ffa-8953-8d12dbbf42b0",
+      "userId": "c90fec31-4e61-4616-8f46-de951940f5c9",
+      "eventType": "page_visited",
+      "metadata": {
+        "route": "/coach/dashboard/",
+        "referrer": "http://localhost:5173/interventions/"
+      },
+      "createdAt": "2026-02-27T19:17:28.746Z"
+    },
+    {
+      "id": "f07269be-c2e5-4e03-92ab-2b3162811742",
+      "userId": "c90fec31-4e61-4616-8f46-de951940f5c9",
+      "eventType": "intervention_selected",
+      "metadata": {
+        "interventionId": "weight_training_5x5",
+        "selectedInterventions": [
+          "weight_training_5x5"
+        ],
+        "durationWeeks": 8
+      },
+      "createdAt": "2026-02-27T19:17:30.263Z"
+    },
+    {
+      "id": "5c1e5459-a00d-42f5-8233-7543e1223020",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "page_visited",
+      "metadata": {
+        "route": "/developer/console/",
+        "referrer": "http://localhost:5173/account/"
+      },
+      "createdAt": "2026-02-27T19:24:01.403Z"
+    },
+    {
+      "id": "291ba2bb-942e-4672-bd10-6fae2d79cc9f",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "page_visited",
+      "metadata": {
+        "route": "/developer/console/",
+        "referrer": "http://localhost:5173/developer/console/"
+      },
+      "createdAt": "2026-02-27T19:25:18.973Z"
+    },
+    {
+      "id": "80d2f01a-df65-47cb-85cb-11a15a7e93c7",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "metric_logged",
+      "metadata": {
+        "metricName": "weight",
+        "value": 75,
+        "unit": "kg",
+        "syncedFrom": "manual"
+      },
+      "createdAt": "2026-02-27T19:44:11.913Z"
+    },
+    {
+      "id": "a51427d0-6c81-4345-9ef6-23df2c4be868",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "metric_logged",
+      "metadata": {
+        "metricName": "body_fat",
+        "value": 17,
+        "unit": "%",
+        "syncedFrom": "manual"
+      },
+      "createdAt": "2026-02-27T19:44:11.927Z"
+    },
+    {
+      "id": "2369799b-b007-4324-a572-6e16720f9209",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "metric_logged",
+      "metadata": {
+        "metricName": "vo2_max",
+        "value": 45,
+        "unit": "ml/kg/min",
+        "syncedFrom": "manual"
+      },
+      "createdAt": "2026-02-27T19:44:11.939Z"
+    },
+    {
+      "id": "a5c662ca-f814-4fb6-ae36-dc7c37f31308",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "metric_logged",
+      "metadata": {
+        "metricName": "rhr",
+        "value": 58,
+        "unit": "bpm",
+        "syncedFrom": "manual"
+      },
+      "createdAt": "2026-02-27T19:44:11.949Z"
+    },
+    {
+      "id": "a5cd16d8-6f93-4500-9ce5-85a1547181be",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "metric_logged",
+      "metadata": {
+        "metricName": "hrv",
+        "value": 750,
+        "unit": "ms",
+        "syncedFrom": "manual"
+      },
+      "createdAt": "2026-02-27T19:44:11.959Z"
+    },
+    {
+      "id": "9a967be6-fe28-4ded-bb7f-00fdd7b8d9c3",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "metric_logged",
+      "metadata": {
+        "metricName": "sleep",
+        "value": 8,
+        "unit": "hours",
+        "syncedFrom": "manual"
+      },
+      "createdAt": "2026-02-27T19:44:11.971Z"
+    },
+    {
+      "id": "faafc1a0-95ff-4e2f-a57d-41ccc0313d24",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "page_visited",
+      "metadata": {
+        "route": "/anatomy/",
+        "referrer": "http://localhost:5173/dashboard/"
+      },
+      "createdAt": "2026-02-27T19:47:16.799Z"
+    },
+    {
+      "id": "67cbe77a-26bd-4ae3-9386-1fd7b7f3bb1f",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "page_visited",
+      "metadata": {
+        "route": "/developer/console/",
+        "referrer": "http://localhost:5173/anatomy/"
+      },
+      "createdAt": "2026-02-27T19:55:18.350Z"
+    },
+    {
+      "id": "927ff50b-3c02-40b2-a4a2-e7fb5148229b",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "intervention_selected",
+      "metadata": {
+        "interventionId": "weight_training_5x5",
+        "selectedInterventions": [
+          "weight_training_5x5"
+        ],
+        "durationWeeks": 8
+      },
+      "createdAt": "2026-03-01T16:37:47.133Z"
+    },
+    {
+      "id": "c092a0d0-327d-4e78-a2dd-c9407ab75bc2",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "page_visited",
+      "metadata": {
+        "route": "/",
+        "referrer": "http://localhost:5173/anatomy/"
+      },
+      "createdAt": "2026-03-01T16:37:53.013Z"
+    },
+    {
+      "id": "c6497e5e-5848-4be8-9256-562b886054e7",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "page_visited",
+      "metadata": {
+        "route": "/",
+        "referrer": "http://localhost:5173/account/"
+      },
+      "createdAt": "2026-03-01T19:06:29.336Z"
+    },
+    {
+      "id": "24880d2f-cf8b-4f23-b6b5-c47f41a90eb5",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "page_visited",
+      "metadata": {
+        "route": "/developer/console/",
+        "referrer": "http://localhost:5173/settings/"
+      },
+      "createdAt": "2026-03-04T19:06:44.786Z"
+    },
+    {
+      "id": "80a5cb3c-b5d9-4e60-b1d4-f09f4aadb737",
+      "userId": "574b1ea2-049c-4347-b0b7-cdd3298f8b30",
+      "eventType": "page_visited",
+      "metadata": {
+        "route": "/developer/console/",
+        "referrer": "http://localhost:5173/graph/"
+      },
+      "createdAt": "2026-03-04T19:07:39.149Z"
+    },
+    {
+      "id": "dec922e4-e706-4ce1-80fe-e23bd50ee1ed",
+      "userId": "5e3981ac-c360-4c95-9988-4b969aad392d",
+      "eventType": "page_visited",
+      "metadata": {
+        "route": "/developer/console/",
+        "referrer": "http://localhost:5173/dashboard/"
+      },
+      "createdAt": "2026-03-04T19:08:54.519Z"
+    },
+    {
+      "id": "47162139-08d1-4ed2-99ca-ab9fee9d61e4",
+      "userId": "5e3981ac-c360-4c95-9988-4b969aad392d",
+      "eventType": "page_visited",
+      "metadata": {
+        "route": "/developer/console/",
+        "referrer": "http://localhost:5173/developer/console/"
+      },
+      "createdAt": "2026-03-04T19:09:00.380Z"
+    },
+    {
+      "id": "47d70c7b-9647-486c-a06f-a21fbc4cdf67",
+      "userId": "5e3981ac-c360-4c95-9988-4b969aad392d",
+      "eventType": "page_visited",
+      "metadata": {
+        "route": "/developer/console/",
+        "referrer": "http://localhost:5173/developer/console/"
+      },
+      "createdAt": "2026-03-04T19:09:00.663Z"
+    },
+    {
+      "id": "5d1a9160-6881-4152-8c8e-47bea185360b",
+      "userId": "5e3981ac-c360-4c95-9988-4b969aad392d",
+      "eventType": "page_visited",
+      "metadata": {
+        "route": "/developer/console/",
+        "referrer": "http://localhost:5173/developer/console/"
+      },
+      "createdAt": "2026-03-04T19:09:00.974Z"
+    },
+    {
+      "id": "04b4f01b-d804-4ed2-9eca-7aebe2aadf29",
+      "userId": "5e3981ac-c360-4c95-9988-4b969aad392d",
+      "eventType": "page_visited",
+      "metadata": {
+        "route": "/developer/console/",
+        "referrer": "http://localhost:5173/account/"
+      },
+      "createdAt": "2026-03-04T19:09:37.712Z"
+    },
+    {
+      "id": "bc1c9540-0bd3-49aa-a926-3d821ef633e8",
+      "userId": "5e3981ac-c360-4c95-9988-4b969aad392d",
+      "eventType": "intervention_selected",
+      "metadata": {
+        "interventionId": "weight_training_5x5",
+        "selectedInterventions": [
+          "weight_training_5x5"
+        ],
+        "durationWeeks": 8
+      },
+      "createdAt": "2026-03-04T19:15:47.317Z"
+    },
+    {
+      "id": "e669f4fb-057a-4601-bc2a-3f51034f6b05",
+      "userId": "5e3981ac-c360-4c95-9988-4b969aad392d",
+      "eventType": "intervention_selected",
+      "metadata": {
+        "interventionId": "weight_training_5x5",
+        "selectedInterventions": [
+          "weight_training_5x5"
+        ],
+        "durationWeeks": 8
+      },
+      "createdAt": "2026-03-04T19:15:54.229Z"
+    },
+    {
+      "id": "b2ebcad8-95e6-419c-abfa-22af5ea980c8",
+      "userId": "5e3981ac-c360-4c95-9988-4b969aad392d",
+      "eventType": "intervention_selected",
+      "metadata": {
+        "interventionId": "weight_training_5x5",
+        "selectedInterventions": [
+          "weight_training_5x5"
+        ],
+        "durationWeeks": 8
+      },
+      "createdAt": "2026-03-04T19:15:54.889Z"
+    },
+    {
+      "id": "03d97611-60ef-444b-8af7-f422592287a9",
+      "userId": "5e3981ac-c360-4c95-9988-4b969aad392d",
+      "eventType": "intervention_selected",
+      "metadata": {
+        "interventionId": "weight_training_5x5",
+        "selectedInterventions": [
+          "weight_training_5x5"
+        ],
+        "durationWeeks": 8
+      },
+      "createdAt": "2026-03-04T19:15:55.067Z"
+    },
+    {
+      "id": "0dc1013a-f19d-496d-9792-f210b94a7ef4",
+      "userId": "5e3981ac-c360-4c95-9988-4b969aad392d",
+      "eventType": "intervention_selected",
+      "metadata": {
+        "interventionId": "cardio_moderate_3x",
+        "selectedInterventions": [
+          "cardio_moderate_3x"
+        ],
+        "durationWeeks": 8
+      },
+      "createdAt": "2026-03-04T19:15:56.230Z"
+    },
+    {
+      "id": "755727c6-10f5-4eec-abda-812b9e5976f6",
+      "userId": "5e3981ac-c360-4c95-9988-4b969aad392d",
+      "eventType": "intervention_selected",
+      "metadata": {
+        "interventionId": "weight_training_5x5",
+        "selectedInterventions": [
+          "weight_training_5x5"
+        ],
+        "durationWeeks": 8
+      },
+      "createdAt": "2026-03-04T19:15:57.329Z"
+    },
+    {
+      "id": "cae80a1e-2cb2-402a-8a13-9b92f172bf08",
+      "userId": "5e3981ac-c360-4c95-9988-4b969aad392d",
+      "eventType": "intervention_selected",
+      "metadata": {
+        "interventionId": "weight_training_5x5",
+        "selectedInterventions": [
+          "weight_training_5x5"
+        ],
+        "durationWeeks": 8
+      },
+      "createdAt": "2026-03-04T19:15:59.980Z"
+    },
+    {
+      "id": "e7a0bb54-77da-4f29-a424-9480900d36b0",
+      "userId": "5e3981ac-c360-4c95-9988-4b969aad392d",
+      "eventType": "intervention_selected",
+      "metadata": {
+        "interventionId": "weight_training_5x5",
+        "selectedInterventions": [
+          "weight_training_5x5"
+        ],
+        "durationWeeks": 8
+      },
+      "createdAt": "2026-03-04T19:16:06.354Z"
+    },
+    {
+      "id": "0a43c73c-176f-4af6-9fdd-99ac9f4ee8f0",
+      "userId": "5e3981ac-c360-4c95-9988-4b969aad392d",
+      "eventType": "intervention_selected",
+      "metadata": {
+        "interventionId": "weight_training_5x5",
+        "selectedInterventions": [
+          "weight_training_5x5"
+        ],
+        "durationWeeks": 8
+      },
+      "createdAt": "2026-03-04T19:16:06.616Z"
+    },
+    {
+      "id": "2a9944bf-5d75-4296-8297-f3c939e2659d",
+      "userId": "5e3981ac-c360-4c95-9988-4b969aad392d",
+      "eventType": "intervention_selected",
+      "metadata": {
+        "interventionId": "weight_training_5x5",
+        "selectedInterventions": [
+          "weight_training_5x5"
+        ],
+        "durationWeeks": 8
+      },
+      "createdAt": "2026-03-04T19:16:06.767Z"
+    },
+    {
+      "id": "17a9ad20-77ec-4a60-bfe6-43caec996a75",
+      "userId": "5e3981ac-c360-4c95-9988-4b969aad392d",
+      "eventType": "intervention_selected",
+      "metadata": {
+        "interventionId": "weight_training_5x5",
+        "selectedInterventions": [
+          "weight_training_5x5"
+        ],
+        "durationWeeks": 8
+      },
+      "createdAt": "2026-03-04T19:16:06.898Z"
+    },
+    {
+      "id": "4baaa3bf-7ef4-4023-b41b-42724b61bad4",
+      "userId": "5e3981ac-c360-4c95-9988-4b969aad392d",
+      "eventType": "intervention_selected",
+      "metadata": {
+        "interventionId": "weight_training_5x5",
+        "selectedInterventions": [
+          "weight_training_5x5"
+        ],
+        "durationWeeks": 8
+      },
+      "createdAt": "2026-03-04T19:16:07.046Z"
+    },
+    {
+      "id": "3c813f52-a6e3-4bad-9bbf-c2980c2879c2",
+      "userId": "5e3981ac-c360-4c95-9988-4b969aad392d",
+      "eventType": "intervention_selected",
+      "metadata": {
+        "interventionId": "weight_training_5x5",
+        "selectedInterventions": [
+          "weight_training_5x5",
+          "cardio_moderate_3x"
+        ],
+        "durationWeeks": 8
+      },
+      "createdAt": "2026-03-04T19:16:20.076Z"
+    },
+    {
+      "id": "5cd62b6e-5372-4c7a-85ab-cced53f757a0",
+      "userId": "5e3981ac-c360-4c95-9988-4b969aad392d",
+      "eventType": "intervention_stacked",
+      "metadata": {
+        "interventions": [
+          "weight_training_5x5",
+          "cardio_moderate_3x"
+        ]
+      },
+      "createdAt": "2026-03-04T19:16:20.077Z"
+    },
+    {
+      "id": "201cb38b-1bb7-478c-84c1-451ac908cc2d",
+      "userId": "5e3981ac-c360-4c95-9988-4b969aad392d",
+      "eventType": "intervention_selected",
+      "metadata": {
+        "interventionId": "screen_time_reduction",
+        "selectedInterventions": [
+          "screen_time_reduction",
+          "cardio_moderate_3x"
+        ],
+        "durationWeeks": 4
+      },
+      "createdAt": "2026-03-04T19:16:22.019Z"
+    },
+    {
+      "id": "9d8f74db-31b5-4d87-98a1-54b6b84cee20",
+      "userId": "5e3981ac-c360-4c95-9988-4b969aad392d",
+      "eventType": "intervention_stacked",
+      "metadata": {
+        "interventions": [
+          "screen_time_reduction",
+          "cardio_moderate_3x"
+        ]
+      },
+      "createdAt": "2026-03-04T19:16:22.020Z"
+    },
+    {
+      "id": "42b6a6af-32a8-4e64-9a96-e31d75057155",
+      "userId": "5e3981ac-c360-4c95-9988-4b969aad392d",
+      "eventType": "intervention_selected",
+      "metadata": {
+        "interventionId": "diet_500_deficit",
+        "selectedInterventions": [
+          "diet_500_deficit",
+          "cardio_moderate_3x"
+        ],
+        "durationWeeks": 8
+      },
+      "createdAt": "2026-03-04T19:16:23.603Z"
+    },
+    {
+      "id": "4ed24ef1-da7c-4246-acb0-8fa7647a7896",
+      "userId": "5e3981ac-c360-4c95-9988-4b969aad392d",
+      "eventType": "intervention_stacked",
+      "metadata": {
+        "interventions": [
+          "diet_500_deficit",
+          "cardio_moderate_3x"
+        ]
+      },
+      "createdAt": "2026-03-04T19:16:23.604Z"
+    },
+    {
+      "id": "4d1e2398-284a-4088-b9f1-e3a4952b21b1",
+      "userId": "5e3981ac-c360-4c95-9988-4b969aad392d",
+      "eventType": "intervention_selected",
+      "metadata": {
+        "interventionId": "cardio_moderate_3x",
+        "selectedInterventions": [
+          "cardio_moderate_3x"
+        ],
+        "durationWeeks": 8
+      },
+      "createdAt": "2026-03-04T19:16:23.964Z"
+    },
+    {
+      "id": "285cb95b-aa61-4a8f-aa67-2db2f929c62e",
+      "userId": "5e3981ac-c360-4c95-9988-4b969aad392d",
+      "eventType": "intervention_selected",
+      "metadata": {
+        "interventionId": "diet_500_deficit",
+        "selectedInterventions": [
+          "diet_500_deficit",
+          "cardio_moderate_3x"
+        ],
+        "durationWeeks": 8
+      },
+      "createdAt": "2026-03-04T19:16:24.277Z"
+    },
+    {
+      "id": "96a52feb-74f5-4fc8-9b17-594e5eb99d5f",
+      "userId": "5e3981ac-c360-4c95-9988-4b969aad392d",
+      "eventType": "intervention_stacked",
+      "metadata": {
+        "interventions": [
+          "diet_500_deficit",
+          "cardio_moderate_3x"
+        ]
+      },
+      "createdAt": "2026-03-04T19:16:24.278Z"
+    },
+    {
+      "id": "7fb0da63-c28c-4b5f-8b28-23bb499ee1cc",
+      "userId": "5e3981ac-c360-4c95-9988-4b969aad392d",
+      "eventType": "intervention_selected",
+      "metadata": {
+        "interventionId": "screen_time_reduction",
+        "selectedInterventions": [
+          "screen_time_reduction",
+          "cardio_moderate_3x"
+        ],
+        "durationWeeks": 4
+      },
+      "createdAt": "2026-03-04T19:16:24.541Z"
+    },
+    {
+      "id": "5c5b4d6d-2eea-42e1-8ca8-961289c123c9",
+      "userId": "5e3981ac-c360-4c95-9988-4b969aad392d",
+      "eventType": "intervention_stacked",
+      "metadata": {
+        "interventions": [
+          "screen_time_reduction",
+          "cardio_moderate_3x"
+        ]
+      },
+      "createdAt": "2026-03-04T19:16:24.542Z"
+    },
+    {
+      "id": "7c888263-6e10-4537-9525-9938e30bb6b5",
+      "userId": "5e3981ac-c360-4c95-9988-4b969aad392d",
+      "eventType": "intervention_selected",
+      "metadata": {
+        "interventionId": "screen_time_reduction",
+        "selectedInterventions": [
+          "screen_time_reduction",
+          "cardio_moderate_3x"
+        ],
+        "durationWeeks": 4
+      },
+      "createdAt": "2026-03-04T19:16:24.702Z"
+    },
+    {
+      "id": "f3805826-ca8f-4056-8270-a0aca96fb484",
+      "userId": "5e3981ac-c360-4c95-9988-4b969aad392d",
+      "eventType": "intervention_stacked",
+      "metadata": {
+        "interventions": [
+          "screen_time_reduction",
+          "cardio_moderate_3x"
+        ]
+      },
+      "createdAt": "2026-03-04T19:16:24.703Z"
+    },
+    {
+      "id": "1257d5e6-e79d-460f-89ca-72e7cd4f71c8",
+      "userId": "5e3981ac-c360-4c95-9988-4b969aad392d",
+      "eventType": "intervention_selected",
+      "metadata": {
+        "interventionId": "screen_time_reduction",
+        "selectedInterventions": [
+          "screen_time_reduction",
+          "cardio_moderate_3x"
+        ],
+        "durationWeeks": 4
+      },
+      "createdAt": "2026-03-04T19:16:24.893Z"
+    },
+    {
+      "id": "4b7aa4c5-08f2-4b90-bebd-8500ed0c0efb",
+      "userId": "5e3981ac-c360-4c95-9988-4b969aad392d",
+      "eventType": "intervention_stacked",
+      "metadata": {
+        "interventions": [
+          "screen_time_reduction",
+          "cardio_moderate_3x"
+        ]
+      },
+      "createdAt": "2026-03-04T19:16:24.894Z"
+    },
+    {
+      "id": "d2ecbe14-7e6d-485e-a1a2-efd1bd03f7d7",
+      "userId": "5e3981ac-c360-4c95-9988-4b969aad392d",
+      "eventType": "intervention_selected",
+      "metadata": {
+        "interventionId": "screen_time_reduction",
+        "selectedInterventions": [
+          "screen_time_reduction",
+          "cardio_moderate_3x"
+        ],
+        "durationWeeks": 4
+      },
+      "createdAt": "2026-03-04T19:16:25.060Z"
+    },
+    {
+      "id": "7ae5c639-ee13-4158-ab73-5c2da882e77c",
+      "userId": "5e3981ac-c360-4c95-9988-4b969aad392d",
+      "eventType": "intervention_stacked",
+      "metadata": {
+        "interventions": [
+          "screen_time_reduction",
+          "cardio_moderate_3x"
+        ]
+      },
+      "createdAt": "2026-03-04T19:16:25.061Z"
+    },
+    {
+      "id": "c9f0751a-6312-4de7-a33b-5598ed533c26",
+      "userId": "5e3981ac-c360-4c95-9988-4b969aad392d",
+      "eventType": "page_visited",
+      "metadata": {
+        "route": "/developer/console/",
+        "referrer": "http://localhost:5173/interventions/"
+      },
+      "createdAt": "2026-03-04T19:16:27.662Z"
     }
   ],
   "interventionVersions": [

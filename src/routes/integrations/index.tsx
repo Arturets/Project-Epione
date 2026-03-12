@@ -8,7 +8,8 @@ export default component$(() => {
     loading: true,
     authenticated: false,
     userEmail: '',
-    csrfToken: ''
+    csrfToken: '',
+    userRole: undefined as 'customer' | 'coach' | 'admin' | undefined
   });
 
   const load = $(async () => {
@@ -21,6 +22,7 @@ export default component$(() => {
     state.authenticated = true;
     state.userEmail = session.data.user.email;
     state.csrfToken = session.data.csrfToken;
+    state.userRole = session.data.user.role;
     state.loading = false;
   });
 
@@ -40,7 +42,7 @@ export default component$(() => {
   }
 
   return (
-    <AppShell title="Integrations" subtitle="Connect data sources and external apps (scaffold)." userEmail={state.userEmail} csrfToken={state.csrfToken}>
+    <AppShell title="Integrations" subtitle="Connect data sources and external apps (scaffold)." userEmail={state.userEmail} csrfToken={state.csrfToken} userRole={state.userRole}>
       <section class="landing-section-grid">
         <article class="card">
           <h3>Apple Health</h3>

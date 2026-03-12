@@ -8,7 +8,8 @@ export default component$(() => {
     loading: true,
     authenticated: false,
     userEmail: '',
-    csrfToken: ''
+    csrfToken: '',
+    userRole: undefined as 'customer' | 'coach' | 'admin' | undefined
   });
 
   const load = $(async () => {
@@ -21,6 +22,7 @@ export default component$(() => {
     state.authenticated = true;
     state.userEmail = session.data.user.email;
     state.csrfToken = session.data.csrfToken;
+    state.userRole = session.data.user.role;
     state.loading = false;
   });
 
@@ -40,7 +42,7 @@ export default component$(() => {
   }
 
   return (
-    <AppShell title="Billing & Membership" subtitle="Plans, invoices, and payment method management (scaffold)." userEmail={state.userEmail} csrfToken={state.csrfToken}>
+    <AppShell title="Billing & Membership" subtitle="Plans, invoices, and payment method management (scaffold)." userEmail={state.userEmail} csrfToken={state.csrfToken} userRole={state.userRole}>
       <section class="card">
         <h3>Current Plan</h3>
         <p><strong>Starter</strong> — $19/month</p>

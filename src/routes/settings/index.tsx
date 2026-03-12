@@ -18,6 +18,7 @@ export default component$(() => {
     authenticated: false,
     userEmail: '',
     csrfToken: '',
+    userRole: undefined as 'customer' | 'coach' | 'admin' | undefined,
     weightUnit: 'kg' as 'kg' | 'lbs',
     distanceUnit: 'km' as 'km' | 'mi',
     error: '',
@@ -37,6 +38,7 @@ export default component$(() => {
     state.authenticated = true;
     state.userEmail = session.data.user.email;
     state.csrfToken = session.data.csrfToken;
+    state.userRole = session.data.user.role;
 
     const settings = await fetchApi<SettingsResponse>('/api/settings');
     if (!settings.ok) {
@@ -95,6 +97,7 @@ export default component$(() => {
       subtitle="User preferences and deployment/security notes."
       userEmail={state.userEmail}
       csrfToken={state.csrfToken}
+      userRole={state.userRole}
     >
       {state.loading ? <div class="card">Loading settings...</div> : null}
       {state.error ? <div class="banner banner-error">{state.error}</div> : null}

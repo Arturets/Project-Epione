@@ -1,6 +1,8 @@
 import { $, Slot, component$, useSignal, useVisibleTask$ } from '@builder.io/qwik';
 import { Link, useLocation, useNavigate } from '@builder.io/qwik-city';
 import { fetchApi } from '../../lib/client';
+import { hasAnalyticsConsent } from '../../lib/consent';
+import { CookieConsentPanel } from './CookieConsentPanel';
 import { SyncStatus } from './SyncStatus';
 
 type Props = {
@@ -8,6 +10,7 @@ type Props = {
   subtitle?: string;
   userEmail?: string;
   csrfToken?: string;
+  userRole?: 'customer' | 'coach' | 'admin';
 };
 
 const NAV_LINKS = [
@@ -25,7 +28,7 @@ const NAV_LINKS = [
   { href: '/settings', label: 'Settings' }
 ];
 
-export const AppShell = component$<Props>(({ title, subtitle, userEmail, csrfToken }) => {
+export const AppShell = component$<Props>(({ title, subtitle, userEmail, csrfToken, userRole }) => {
   const location = useLocation();
   const nav = useNavigate();
   const lastTrackedPath = useSignal('');
@@ -51,6 +54,7 @@ export const AppShell = component$<Props>(({ title, subtitle, userEmail, csrfTok
     const path = track(() => location.url.pathname);
     if (!userEmail || !csrfToken) return;
     if (lastTrackedPath.value === path) return;
+    if (!hasAnalyticsConsent()) return;
 
     lastTrackedPath.value = path;
     await fetchApi('/api/events/page-visit', {
@@ -89,7 +93,7 @@ export const AppShell = component$<Props>(({ title, subtitle, userEmail, csrfTok
 
       {userEmail ? (
         <nav class="main-nav" aria-label="Primary navigation">
-          {NAV_LINKS.map((link) => (
+          {NAV_LINKS.filter((link) => (link.href === '/developer/console' ? userRole === 'admin' : true)).map((link) => (
             <a href={link.href} class={`nav-link ${location.url.pathname === link.href ? 'nav-link-active' : ''}`} key={link.href}>
               {link.label}
             </a>
@@ -102,6 +106,7 @@ export const AppShell = component$<Props>(({ title, subtitle, userEmail, csrfTok
       </main>
 
       {userEmail ? <SyncStatus csrfToken={csrfToken} /> : null}
+      <CookieConsentPanel csrfToken={csrfToken} />
     </div>
   );
 });

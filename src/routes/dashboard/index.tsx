@@ -38,6 +38,7 @@ export default component$(() => {
     authenticated: false,
     userEmail: '',
     csrfToken: '',
+    userRole: undefined as 'customer' | 'coach' | 'admin' | undefined,
     session: null as SessionData | null,
     metrics: [] as MetricsResponse['latest'],
     records: [] as MetricsResponse['records'],
@@ -70,6 +71,7 @@ export default component$(() => {
     state.session = session.data;
     state.userEmail = session.data.user.email;
     state.csrfToken = session.data.csrfToken;
+    state.userRole = session.data.user.role;
 
     const [metricsResponse, suggestionsResponse] = await Promise.all([
       fetchApi<MetricsResponse>('/api/metrics'),
@@ -263,6 +265,7 @@ export default component$(() => {
       subtitle="Manual logging, suggestions, Apple Health sync, and snapshots."
       userEmail={state.userEmail}
       csrfToken={state.csrfToken}
+      userRole={state.userRole}
     >
       {state.loading ? <div class="card">Loading dashboard...</div> : null}
 

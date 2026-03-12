@@ -30,6 +30,7 @@ export default component$(() => {
     authenticated: false,
     userEmail: '',
     csrfToken: '',
+    userRole: undefined as 'customer' | 'coach' | 'admin' | undefined,
     snapshots: [] as Snapshot[],
     selectedSnapshotId: '',
     currentMetricValues: {} as Partial<Record<MetricName, number>>,
@@ -54,6 +55,7 @@ export default component$(() => {
     state.authenticated = true;
     state.userEmail = session.data.user.email;
     state.csrfToken = session.data.csrfToken;
+    state.userRole = session.data.user.role;
 
     const [snapshotsResponse, metricsResponse] = await Promise.all([
       fetchApi<Snapshot[]>('/api/snapshots'),
@@ -171,6 +173,7 @@ export default component$(() => {
       subtitle="Save full-state snapshots and compare changes over time."
       userEmail={state.userEmail}
       csrfToken={state.csrfToken}
+      userRole={state.userRole}
     >
       {state.loading ? <div class="card">Loading snapshots...</div> : null}
       {state.error ? <div class="banner banner-error">{state.error}</div> : null}

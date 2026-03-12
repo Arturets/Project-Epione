@@ -1,6 +1,7 @@
 import { $, Slot, component$, useStore, useVisibleTask$ } from '@builder.io/qwik';
 import { Link } from '@builder.io/qwik-city';
 import { fetchSession } from '../../lib/session-client';
+import { CookieConsentPanel } from './CookieConsentPanel';
 
 type Props = {
   title?: string;
@@ -145,6 +146,7 @@ export const MarketingShell = component$<Props>(({ title, subtitle }) => {
           <span>{state.isLoggedIn ? `Signed in as ${state.userEmail}` : 'Public preview mode'}</span>
         </div>
       </footer>
+      <CookieConsentPanel />
     </div>
   );
 });

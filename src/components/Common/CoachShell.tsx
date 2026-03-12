@@ -1,6 +1,8 @@
 import { $, Slot, component$, useSignal, useVisibleTask$ } from '@builder.io/qwik';
 import { Link, useLocation, useNavigate } from '@builder.io/qwik-city';
 import { fetchApi } from '../../lib/client';
+import { hasAnalyticsConsent } from '../../lib/consent';
+import { CookieConsentPanel } from './CookieConsentPanel';
 
 type Props = {
   title: string;
@@ -44,6 +46,7 @@ export const CoachShell = component$<Props>(({ title, subtitle, userEmail, csrfT
     const path = track(() => location.url.pathname);
     if (!userEmail || !csrfToken) return;
     if (lastTrackedPath.value === path) return;
+    if (!hasAnalyticsConsent()) return;
 
     lastTrackedPath.value = path;
     await fetchApi('/api/events/page-visit', {
@@ -94,6 +97,7 @@ export const CoachShell = component$<Props>(({ title, subtitle, userEmail, csrfT
       <main class="page-content">
         <Slot />
       </main>
+      <CookieConsentPanel csrfToken={csrfToken} />
     </div>
   );
 });

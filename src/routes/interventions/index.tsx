@@ -69,6 +69,7 @@ export default component$(() => {
     authenticated: false,
     userEmail: '',
     csrfToken: '',
+    userRole: undefined as 'customer' | 'coach' | 'admin' | undefined,
     interventions: [] as Intervention[],
     selectedInterventionId: '',
     stackSelection: {} as Record<string, boolean>,
@@ -121,6 +122,7 @@ export default component$(() => {
     state.authenticated = true;
     state.userEmail = session.data.user.email;
     state.csrfToken = session.data.csrfToken;
+    state.userRole = session.data.user.role;
 
     const [interventionsResponse, metricsResponse, graphConfigResponse] = await Promise.all([
       fetchApi<Intervention[]>('/api/interventions'),
@@ -182,6 +184,7 @@ export default component$(() => {
       subtitle="Select one or more interventions, inspect predicted metric deltas, and review contraindications."
       userEmail={state.userEmail}
       csrfToken={state.csrfToken}
+      userRole={state.userRole}
     >
       {state.loading ? <div class="card">Loading interventions...</div> : null}
       {state.error ? <div class="banner banner-error">{state.error}</div> : null}

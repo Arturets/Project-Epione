@@ -8,7 +8,8 @@ export default component$(() => {
     loading: true,
     authenticated: false,
     userEmail: '',
-    csrfToken: ''
+    csrfToken: '',
+    userRole: undefined as 'customer' | 'coach' | 'admin' | undefined
   });
 
   const load = $(async () => {
@@ -21,6 +22,7 @@ export default component$(() => {
     state.authenticated = true;
     state.userEmail = session.data.user.email;
     state.csrfToken = session.data.csrfToken;
+    state.userRole = session.data.user.role;
     state.loading = false;
   });
 
@@ -40,7 +42,7 @@ export default component$(() => {
   }
 
   return (
-    <AppShell title="Insights" subtitle="Personalized summaries and decision support (scaffold)." userEmail={state.userEmail} csrfToken={state.csrfToken}>
+    <AppShell title="Insights" subtitle="Personalized summaries and decision support (scaffold)." userEmail={state.userEmail} csrfToken={state.csrfToken} userRole={state.userRole}>
       <section class="card">
         <h3>Weekly Insight Summary</h3>
         <p class="muted">This section will surface key drivers, trend shifts, and intervention opportunities.</p>

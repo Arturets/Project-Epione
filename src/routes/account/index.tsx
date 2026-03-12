@@ -20,6 +20,7 @@ export default component$(() => {
     authenticated: false,
     userEmail: '',
     csrfToken: '',
+    userRole: undefined as 'customer' | 'coach' | 'admin' | undefined,
     activeTab: 'security' as AccountTab,
     recoveryEmail: '',
     shareLink: makeShareLink(),
@@ -67,6 +68,7 @@ export default component$(() => {
     state.authenticated = true;
     state.userEmail = session.data.user.email;
     state.csrfToken = session.data.csrfToken;
+    state.userRole = session.data.user.role;
     state.recoveryEmail = session.data.user.email;
     state.connectedProviders = Object.keys(session.data.user.oauthProviders ?? {});
     state.twoFactorEnabled = session.data.user.twoFactorEnabled;
@@ -194,6 +196,7 @@ export default component$(() => {
       subtitle="Manage security, privacy, integrations, and personal preferences."
       userEmail={state.userEmail}
       csrfToken={state.csrfToken}
+      userRole={state.userRole}
     >
       {state.loading ? <div class="card">Loading account details...</div> : null}
       {state.notice ? <div class="banner banner-success">{state.notice}</div> : null}

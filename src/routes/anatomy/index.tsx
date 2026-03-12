@@ -9,6 +9,7 @@ export default component$(() => {
     loading: true,
     authenticated: false,
     userEmail: '',
+    userRole: undefined as 'customer' | 'coach' | 'admin' | undefined,
     csrfToken: ''
   });
 
@@ -23,6 +24,7 @@ export default component$(() => {
     state.authenticated = true;
     state.userEmail = session.data.user.email;
     state.csrfToken = session.data.csrfToken;
+    state.userRole = session.data.user.role;
     state.loading = false;
   });
 
@@ -50,6 +52,7 @@ export default component$(() => {
       subtitle="Select specific muscles head-by-head from front/back views."
       userEmail={state.userEmail}
       csrfToken={state.csrfToken}
+      userRole={state.userRole}
     >
       <section class="card">
         <div class="section-header-row">

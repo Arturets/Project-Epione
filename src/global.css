@@ -1179,6 +1179,120 @@ a {
   color: var(--muted);
 }
 
+.consent-panel {
+  position: fixed;
+  right: 16px;
+  bottom: 80px;
+  width: min(360px, calc(100vw - 32px));
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.18);
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.consent-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.consent-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-strong);
+  font-weight: 700;
+}
+
+.consent-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.consent-option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: rgba(248, 250, 252, 0.9);
+}
+
+.consent-label {
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.consent-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.consent-clear {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.consent-clear-menu {
+  display: grid;
+  gap: 6px;
+  border: 1px dashed var(--border);
+  border-radius: 12px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.consent-clear-status {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.consent-clear-status.success {
+  color: var(--success);
+}
+
+.consent-clear-status.error {
+  color: var(--error);
+}
+
+.consent-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.consent-fab {
+  position: fixed;
+  right: 16px;
+  bottom: 80px;
+  z-index: 39;
+  border-radius: 999px;
+  padding: 8px 14px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.92);
+  font-weight: 700;
+  font-size: 12px;
+  box-shadow: 0 12px 26px rgba(15, 23, 42, 0.14);
+}
+
+.consent-fab:hover {
+  border-color: rgba(64, 224, 208, 0.44);
+}
+
 .landing-page {
   min-height: 100vh;
   display: flex;
@@ -1410,7 +1524,9 @@ a {
 :root[data-theme='dark'] .landing-quote,
 :root[data-theme='blackout'] .landing-quote,
 :root[data-theme='dark'] .sync-status,
-:root[data-theme='blackout'] .sync-status {
+:root[data-theme='blackout'] .sync-status,
+:root[data-theme='dark'] .consent-panel,
+:root[data-theme='blackout'] .consent-panel {
   background: var(--surface);
   border-color: var(--border);
 }

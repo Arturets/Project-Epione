@@ -9,7 +9,8 @@ export default component$(() => {
     authenticated: false,
     authorized: false,
     userEmail: '',
-    csrfToken: ''
+    csrfToken: '',
+    userRole: undefined as 'customer' | 'coach' | 'admin' | undefined
   });
 
   const load = $(async () => {
@@ -24,6 +25,7 @@ export default component$(() => {
     state.authenticated = true;
     state.userEmail = session.data.user.email;
     state.csrfToken = session.data.csrfToken;
+    state.userRole = session.data.user.role;
     state.authorized = session.data.user.role === 'admin';
     state.loading = false;
   });
@@ -34,7 +36,7 @@ export default component$(() => {
 
   if (state.loading) {
     return (
-      <AppShell title="Developer Console" subtitle="Loading developer workspace..." userEmail={state.userEmail} csrfToken={state.csrfToken}>
+      <AppShell title="Developer Console" subtitle="Loading developer workspace..." userEmail={state.userEmail} csrfToken={state.csrfToken} userRole={state.userRole}>
         <section class="card">Loading developer access...</section>
       </AppShell>
     );
@@ -56,7 +58,7 @@ export default component$(() => {
 
   if (!state.authorized) {
     return (
-      <AppShell title="Developer Console" subtitle="Admin role required." userEmail={state.userEmail} csrfToken={state.csrfToken}>
+      <AppShell title="Developer Console" subtitle="Admin role required." userEmail={state.userEmail} csrfToken={state.csrfToken} userRole={state.userRole}>
         <section class="card card-center">
           <h2>Access denied</h2>
           <p class="muted">Your account does not have admin permissions.</p>
@@ -74,6 +76,7 @@ export default component$(() => {
       subtitle="Intervention versioning, architecture visibility, and usage analytics."
       userEmail={state.userEmail}
       csrfToken={state.csrfToken}
+      userRole={state.userRole}
     >
       <Slot />
     </AppShell>

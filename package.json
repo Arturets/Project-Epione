@@ -9,8 +9,8 @@
     "lint": "eslint src --ext .ts,.tsx"
   },
   "dependencies": {
-    "@builder.io/qwik": "^1.19.0",
-    "@builder.io/qwik-city": "^1.19.0",
+    "@builder.io/qwik": "^1.19.1",
+    "@builder.io/qwik-city": "^1.19.1",
     "@electric-sql/client": "1.5.1",
     "d3": "^7.9.0",
     "drizzle-orm": "^0.45.1",
@@ -23,6 +23,15 @@
     "eslint": "^9.39.2",
     "typescript": "^5.9.3",
     "vite": "5.4.21"
+  },
+  "pnpm": {
+    "overrides": {
+      "rollup": "^4.59.0",
+      "minimatch": "^9.0.7",
+      "svgo": "^3.3.3",
+      "esbuild": "^0.25.0",
+      "ajv": "^6.14.0"
+    }
   },
   "volta": {
     "node": "20.20.0"

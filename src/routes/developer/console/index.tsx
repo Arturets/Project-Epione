@@ -334,6 +334,7 @@ export default component$(() => {
 
     const response = await fetchApi<{ apiKey: string; masked: string }>('/api/developer/account/key', {
       method: 'POST',
+      headers: state.csrfToken ? { 'x-csrf-token': state.csrfToken } : undefined,
       body: JSON.stringify({})
     });
 

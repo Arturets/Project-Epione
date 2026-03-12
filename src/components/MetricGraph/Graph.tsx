@@ -35,6 +35,27 @@ const EDGE_STRENGTH_SCORE: Record<GraphEdgeConfig['effectStrength'], number> = {
   low: 1
 };
 
+function renderTooltip(tooltipElement: HTMLDivElement, title: string, lines: Array<string | null | undefined>) {
+  while (tooltipElement.firstChild) {
+    tooltipElement.removeChild(tooltipElement.firstChild);
+  }
+
+  const titleElement = document.createElement('strong');
+  titleElement.textContent = title;
+  tooltipElement.appendChild(titleElement);
+
+  const sanitizedLines = lines
+    .map((line) => String(line ?? '').trim())
+    .filter((line) => line.length > 0);
+
+  for (const line of sanitizedLines) {
+    tooltipElement.appendChild(document.createElement('br'));
+    const text = document.createElement('span');
+    text.textContent = line;
+    tooltipElement.appendChild(text);
+  }
+}
+
 function isCoreMetric(metricName: GraphNodeId): metricName is MetricName {
   return (METRIC_NAMES as readonly string[]).includes(metricName);
 }
@@ -300,7 +321,7 @@ export const Graph = component$<Props>(({ currentMetrics, predictedMetrics, grap
         tooltipElement.style.opacity = '1';
         tooltipElement.style.left = `${event.offsetX + 16}px`;
         tooltipElement.style.top = `${event.offsetY + 16}px`;
-        tooltipElement.innerHTML = `<strong>${edge.source} → ${edge.target}</strong><br/>${edge.description}`;
+        renderTooltip(tooltipElement, `${edge.source} → ${edge.target}`, [edge.description]);
       })
       .on('mouseleave', function onMouseLeave(_, edge) {
         const base = edge.effectStrength === 'high' ? 3.2 : edge.effectStrength === 'moderate' ? 2.3 : 1.6;
@@ -327,14 +348,22 @@ export const Graph = component$<Props>(({ currentMetrics, predictedMetrics, grap
         tooltipElement.style.opacity = '1';
         tooltipElement.style.left = `${event.offsetX + 16}px`;
         tooltipElement.style.top = `${event.offsetY + 16}px`;
+        const lines: string[] = [];
 
-        tooltipElement.innerHTML = `<strong>${item.label}</strong><br/>${
-          datum
-            ? `${datum.value.toFixed(2)} ${datum.unit}<br/>Updated: ${new Date(datum.recordedAt).toLocaleString()}<br/>`
-            : item.tier === 'core'
-              ? 'No data yet<br/>'
-              : `${item.domain} supporting metric<br/>`
-        }${item.description}`;
+        if (datum) {
+          lines.push(`${datum.value.toFixed(2)} ${datum.unit}`);
+          lines.push(`Updated: ${new Date(datum.recordedAt).toLocaleString()}`);
+        } else if (item.tier === 'core') {
+          lines.push('No data yet');
+        } else {
+          lines.push(`${item.domain} supporting metric`);
+        }
+
+        if (item.description) {
+          lines.push(item.description);
+        }
+
+        renderTooltip(tooltipElement, item.label, lines);
       })
       .on('mouseleave', () => {
         tooltipElement.style.opacity = '0';

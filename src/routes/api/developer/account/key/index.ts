@@ -1,5 +1,6 @@
 import type { RequestHandler } from '@builder.io/qwik-city';
 import { requireAdminSession, getOrCreateAdminApiKey, rotateAdminApiKey } from '../../../../../lib/admin-auth';
+import { assertCsrf } from '../../../../../lib/auth';
 import { sendApiError } from '../../../../../lib/http';
 
 export const onGet: RequestHandler = async (event) => {
@@ -22,6 +23,7 @@ export const onGet: RequestHandler = async (event) => {
 export const onPost: RequestHandler = async (event) => {
   try {
     const auth = await requireAdminSession(event);
+    assertCsrf(event, auth.csrfToken);
     const apiKey = await rotateAdminApiKey(auth.user.id);
 
     event.json(200, {
